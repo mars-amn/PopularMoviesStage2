@@ -1,0 +1,53 @@
+buildscript {
+
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.1'
+
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    minSdkVersion = 17
+    targetSdkVersion = 27
+    compileSdkVersion = 27
+
+    librariesVersions = [
+            supportLibraryVersion     : '27.1.1',
+
+            constraintLayoutVersion   : '1.1.0',
+
+            espressoTestLibraryVersion: '3.0.1',
+
+            jUnitVersion              : '4.12',
+
+            runnerVersion             : '1.0.1',
+
+            butterKnifeLibraryVersion : '8.8.1',
+
+            glideLibraryVersion       : '4.7.1',
+
+            retrofitLibraryVersion    : '2.4.0',
+
+            gsonLibraryVersion        : '2.8.2',
+
+            fitChartLibrary            : '1.0'
+
+    ]
+
+
+}

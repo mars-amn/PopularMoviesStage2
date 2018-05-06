@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+
+    <!-- empty state and offline state-->
+    <string name="offline_state_text_view">Please check your connection and try again.</string>
+    <string name="network_lost_content_description">No Internet Connection</string>
+    <string name="empty_state_label">Your Favorite list is Empty</string>
+
+    <!-- menu items-->
+    <string name="sort_order_menu_label">Sort Order</string>
+    <string name="sort_by_popular_movies_menu_title">Most Popular</string>
+    <string name="sort_by_high_rated_movies_menu_title">High Rated</string>
+    <string name="sort_by_favorite_title">My Favorite</string>
+    <string name="settings_menu_title">Settings</string>
+
+    <!-- details layout-->
+    <string name="release_date_label">Release Date:</string>
+    <string name="average_rate_label">Average Vote:</string>
+    <string name="overview_text">OverView</string>
+
+    <!--  preferences -->
+    <string name="pref_check_box_summary_on">Enabled</string>
+    <string name="pref_check_box_summary_off">Disabled</string>
+    <string name="pref_check_box_notification_label">Notification Movies</string>
+    <string name="pref_check_box_notification_key" translatable="false">latest_notification</string>
+
+    <!-- alertDialog used in favorite movies-->
+    <string name="delete_movie_alert_dialog_title">Delete Movie</string>
+    <string name="delete_movie_alert_dialog_message">Are you sure you want to remove this movie of your Favorite list?</string>
+    <string name="delete_movie_alert_dialog_positive_button_label">Yes</string>
+    <string name="delete_movie_alert_dialog_negative_button_label">No</string>
+    <string name="deleted_label">Deleted</string>
+
+    <!--notifications -->
+    <string name="notification_title_label">Check out the Latest Movie for Today</string>
+    <string name="notification_action_dismiss_label">Dismiss</string>
+    <string name="notification_action_open_movie_label">Explore</string>
+
+    <!-- content description-->
+    <string name="movie_poster_content_description">Movie\'s Poster</string>
+    <string name="empty_state_content_description">No movies in the list</string>
+    <string name="trailer_list_content_description">Trailer Thumbnail Image</string>
+
+    <!-- reviews layout -->
+    <string name="review_author_label">Reviewer Name</string>
+    <string name="review_content_label">Review blabla</string>
+
+    <!--navigation drawer-->
+    <string name="navigation_drawer_open">Open menu</string>
+    <string name="navigation_drawer_close">Close menu</string>
+
+    <!-- other strings 0/ -->
+    <string name="share_trailer_label">Share Trailer</string>
+    <string name="error_message">Sorry, something bad occurred</string>
+
+</resources>

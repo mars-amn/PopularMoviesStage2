@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">أحدث الأفلام المرحلة الثانية</string>
+
+    <string name="offline_state_text_view">من فضلك تأكد من وجود إتصال بشبكة الانترنت</string>
+    <string name="network_lost_content_description">لا يوجد اتصال بالانترنت</string>
+    <string name="empty_state_label">قائمتك المفضلة خالية</string>
+
+    <!-- menu items-->
+    <string name="sort_order_menu_label">طريقة العرض</string>
+    <string name="sort_by_popular_movies_menu_title">الأكثر شعبية</string>
+    <string name="sort_by_high_rated_movies_menu_title">الأكثر تصويتاً</string>
+    <string name="sort_by_favorite_title">قائمتي المُفضلة</string>
+    <string name="settings_menu_title">الإعدادات</string>
+
+    <!-- details layout-->
+    <string name="release_date_label">تاريخ الإصدار</string>
+    <string name="average_rate_label">متوسط التصويت</string>
+    <string name="overview_text">عن الفيلم</string>
+
+    <!-- preferences -->
+    <string name="pref_check_box_summary_on">مُفّعل</string>
+    <string name="pref_check_box_summary_off">مُعطل</string>
+    <string name="pref_check_box_notification_label">إشعارات الأفلام الجديدة</string>
+
+    <!-- alertDialog used in favorite movies -->
+    <string name="delete_movie_alert_dialog_title">مسح الفيلم</string>
+    <string name="delete_movie_alert_dialog_message">هل أنت متأكد من مسح الفيلم من قائمتك المفضل؟</string>
+    <string name="delete_movie_alert_dialog_positive_button_label">نعم</string>
+    <string name="delete_movie_alert_dialog_negative_button_label">لا</string>
+    <string name="deleted_label">تم المسح</string>
+
+    <!-- notifications -->
+    <string name="notification_title_label">إكتشف أحدث فيلم لهذا اليوم</string>
+    <string name="notification_action_dismiss_label">إنصراف</string>
+    <string name="notification_action_open_movie_label">إكتشاف</string>
+
+    <!-- content description-->
+    <string name="movie_poster_content_description">صورة الفيلم</string>
+    <string name="empty_state_content_description">لا يوجد افلام في قائمتك المُفضلة</string>
+    <string name="trailer_list_content_description">صورة التريلر</string>
+
+    <!-- reviews layout -->
+    <string name="review_author_label">إسم المُراجع</string>
+    <string name="review_content_label">المُراجعة</string>
+
+    <!-- navigation drawer-->
+    <string name="navigation_drawer_open">إفتح القائمة</string>
+    <string name="navigation_drawer_close">أغلق القائمة</string>
+
+    <!--0/ -->
+    <string name="error_message">نأسف، لقد حدث خطأ ما.</string>
+</resources>
