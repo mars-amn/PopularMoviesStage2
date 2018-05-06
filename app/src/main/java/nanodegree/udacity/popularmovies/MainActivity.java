@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import nanodegree.udacity.popularmovies.fragments.FavoriteMoviesFragment;
 import nanodegree.udacity.popularmovies.fragments.HighRatedMoviesFragment;
 import nanodegree.udacity.popularmovies.fragments.PopularMoviesFragment;
 
@@ -72,6 +73,12 @@ public class MainActivity extends AppCompatActivity
                 .commit();
     }
 
+    private void launchFavoriteMovies(){
+        FavoriteMoviesFragment favoriteMoviesFragment = new FavoriteMoviesFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.mainMoviesContainer,favoriteMoviesFragment)
+                .commit();
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -84,6 +91,10 @@ public class MainActivity extends AppCompatActivity
             }
             case R.id.sortByHighRatedMenu: {
                 launchHighRatedMoviesFragment();
+                break;
+            }
+            case R.id.sortByFavoriteMenu:{
+                launchFavoriteMovies();
                 break;
             }
             case R.id.action_settings: {

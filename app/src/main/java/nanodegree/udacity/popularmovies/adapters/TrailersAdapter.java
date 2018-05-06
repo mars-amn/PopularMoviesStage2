@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.squareup.picasso.Picasso;
+
 
 import java.util.List;
 
+import nanodegree.udacity.popularmovies.GlideApp;
+import nanodegree.udacity.popularmovies.R;
 import nanodegree.udacity.popularmovies.databinding.TrailersListBinding;
 
 /**
@@ -86,8 +88,11 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.traile
             super(binding.getRoot());
             trailersListBinding = binding;
         }
-        public void bindView(String trailerThumbnail){
-            Picasso.with(mContext).load(trailerThumbnail)
+        private void bindView(String trailerThumbnail){
+            GlideApp.with(mContext)
+                    .load(trailerThumbnail)
+                    .placeholder(R.mipmap.ic_launcher)
+                    .error(R.mipmap.ic_launcher)
                     .into(trailersListBinding.youtubeTrailerThumbnailImageView);
 
             trailersListBinding.executePendingBindings();

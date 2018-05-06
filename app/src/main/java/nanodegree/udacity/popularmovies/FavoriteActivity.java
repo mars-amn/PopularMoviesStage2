@@ -19,7 +19,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
+
 
 import nanodegree.udacity.popularmovies.Utils.NotificationUtils;
 import nanodegree.udacity.popularmovies.database.MoviesContract;
@@ -151,7 +151,7 @@ public class FavoriteActivity extends AppCompatActivity implements
 
             String posterPath = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.POSTER_COLUMN));
             String POSTER_SIZE = "w780";
-            Picasso.with(mContext).load(BuildConfig.POSTER_BASE_URL + POSTER_SIZE + posterPath)
+            GlideApp.with(mContext).load(BuildConfig.POSTER_BASE_URL + POSTER_SIZE + posterPath)
                     .into(activityFavoriteBinding.posterFavorite);
 
             activityFavoriteBinding.posterFavorite.startAnimation(fadingAnim);
@@ -162,17 +162,17 @@ public class FavoriteActivity extends AppCompatActivity implements
 
             double voteAverage = cursor.getDouble(cursor.getColumnIndex(MoviesContract.MoviesEntry.AVERAGE_COLUMN));
             float averageVoteInDouble = (float) voteAverage ;
-            activityFavoriteBinding.includedDetailsLayoutInFavorite.rateChart.setMinValue(0f);
-            activityFavoriteBinding.includedDetailsLayoutInFavorite.rateChart.setMaxValue(10f);
-            activityFavoriteBinding.includedDetailsLayoutInFavorite.rateChart.setValue(averageVoteInDouble);
-            activityFavoriteBinding.includedDetailsLayoutInFavorite.averageVoteLabelTextView.setText(
-                    String.valueOf(averageVoteInDouble));
-
-            String overview = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.OVERVIEW_COLUMN));
-            activityFavoriteBinding.includedDetailsLayoutInFavorite.overviewValueTextView.setText(overview);
-
-            String releaseDate = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.RELEASE_DATE_COLUMN));
-            activityFavoriteBinding.includedDetailsLayoutInFavorite.releaseDateLabelTextView.setText(releaseDate);
+//            activityFavoriteBinding.includedDetailsLayoutInFavorite.rateChart.setMinValue(0f);
+//            activityFavoriteBinding.includedDetailsLayoutInFavorite.rateChart.setMaxValue(10f);
+//            activityFavoriteBinding.includedDetailsLayoutInFavorite.rateChart.setValue(averageVoteInDouble);
+//            activityFavoriteBinding.includedDetailsLayoutInFavorite.averageVoteLabelTextView.setText(
+//                    String.valueOf(averageVoteInDouble));
+//
+//            String overview = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.OVERVIEW_COLUMN));
+//            activityFavoriteBinding.includedDetailsLayoutInFavorite.overviewValueTextView.setText(overview);
+//
+//            String releaseDate = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.RELEASE_DATE_COLUMN));
+//            activityFavoriteBinding.includedDetailsLayoutInFavorite.releaseDateLabelTextView.setText(releaseDate);
 
         }else {
             errorUponLaunch();

@@ -14,6 +14,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://jitpack.io' }
     }
 }
 
@@ -45,7 +46,9 @@ ext {
 
             gsonLibraryVersion        : '2.8.2',
 
-            fitChartLibrary            : '1.0'
+            fitChartLibrary           : '1.0',
+
+            sweetAlertDialogLibrary   : '1.4.0'
 
     ]
 
