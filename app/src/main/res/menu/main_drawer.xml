@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view">
 
+
     <item
-        android:title="@string/sort_order_menu_label">
-        <menu
-            android:checkableBehavior="single">
-            <item android:id="@+id/sortByPopularMenu"
-                android:title="@string/sort_by_popular_movies_menu_title"
-                android:icon="@drawable/ic_pop_24dp"/>
+        android:id="@+id/sortByPopularMenu"
+        android:icon="@drawable/ic_pop_24dp"
+        android:title="@string/sort_by_popular_movies_menu_title"
+        android:enabled="true"
+        app:showAsAction="ifRoom"/>
 
-            <item android:id="@+id/sortByHighRatedMenu"
-                android:title="@string/sort_by_high_rated_movies_menu_title"
-                android:icon="@drawable/ic_stars_24dp"/>
+    <item
+        android:id="@+id/sortByHighRatedMenu"
+        android:icon="@drawable/ic_stars_24dp"
+        android:title="@string/sort_by_high_rated_movies_menu_title"
+        android:enabled="true"
+        app:showAsAction="ifRoom"/>
 
-            <item android:id="@+id/sortByFavoriteMenu"
-                android:title="@string/sort_by_favorite_title"
-                android:icon="@drawable/ic_bookmark_24dp"/>
-        </menu>
+    <item
+        android:id="@+id/sortByFavoriteMenu"
+        android:icon="@drawable/ic_bookmark_24dp"
+        android:title="@string/sort_by_favorite_title"
+        android:enabled="true"
+        app:showAsAction="ifRoom"/>
 
-    </item>
 
-    <item android:title="@string/settings_menu_title"
+    <item
         android:id="@+id/action_settings"
-        android:icon="@drawable/ic_settings_24dp"/>
+        android:icon="@drawable/ic_settings_24dp"
+        android:title="@string/settings_menu_title"
+        android:enabled="true"
+        app:showAsAction="ifRoom"/>
 </menu>

@@ -11,6 +11,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import nanodegree.udacity.popularmovies.BuildConfig;
+
+
 import nanodegree.udacity.popularmovies.GlideApp;
 import nanodegree.udacity.popularmovies.R;
 import nanodegree.udacity.popularmovies.models.MoviesResponse;

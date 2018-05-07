@@ -3,12 +3,9 @@ package nanodegree.udacity.popularmovies;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -19,44 +16,27 @@ import nanodegree.udacity.popularmovies.fragments.FavoriteMoviesFragment;
 import nanodegree.udacity.popularmovies.fragments.HighRatedMoviesFragment;
 import nanodegree.udacity.popularmovies.fragments.PopularMoviesFragment;
 
-
 public class MainActivity extends AppCompatActivity
         implements
-        NavigationView.OnNavigationItemSelectedListener {
+        BottomNavigationView.OnNavigationItemSelectedListener {
 
     private final Context mContext = this;
-    @BindView(R.id.drawerLayoutMainActivity)
-    DrawerLayout mDrawerLayout;
     @BindView(R.id.toolbarMainActivity)
     Toolbar mMainActivityToolbar;
-    @BindView(R.id.navigationViewMainActivity)
-    NavigationView mMainActivityNavigationView;
+    @BindView(R.id.bottomNavigationMenu)
+    BottomNavigationView mMoviesBottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        initMainActivityViews();
 
         if (savedInstanceState == null) {
             launchPopularMoviesFragment();
         }
-    }
-
-    private void initMainActivityViews() {
-        ActionBarDrawerToggle mToggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout,
-                mMainActivityToolbar, R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close);
-
-        mDrawerLayout.addDrawerListener(mToggle);
-        mToggle.syncState();
-
-        mMainActivityNavigationView.setNavigationItemSelectedListener(this);
-
-        mMainActivityToolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
         mMainActivityToolbar.setTitle(R.string.app_name);
+        mMoviesBottomNavigation.setOnNavigationItemSelectedListener(this);
     }
 
     private void launchPopularMoviesFragment() {
@@ -73,10 +53,10 @@ public class MainActivity extends AppCompatActivity
                 .commit();
     }
 
-    private void launchFavoriteMovies(){
+    private void launchFavoriteMovies() {
         FavoriteMoviesFragment favoriteMoviesFragment = new FavoriteMoviesFragment();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.mainMoviesContainer,favoriteMoviesFragment)
+                .replace(R.id.mainMoviesContainer, favoriteMoviesFragment)
                 .commit();
     }
 
@@ -93,35 +73,21 @@ public class MainActivity extends AppCompatActivity
                 launchHighRatedMoviesFragment();
                 break;
             }
-            case R.id.sortByFavoriteMenu:{
+            case R.id.sortByFavoriteMenu: {
                 launchFavoriteMovies();
                 break;
             }
             case R.id.action_settings: {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent toSettings = new Intent(mContext, SettingsActivity.class);
-                        startActivity(toSettings);
-                    }
-                }, 180);
+                Intent toSettings = new Intent(mContext, SettingsActivity.class);
+                startActivity(toSettings);
             }
             default: {
             }
 
         }
-        mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    @Override
-    public void onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
 }
 
 

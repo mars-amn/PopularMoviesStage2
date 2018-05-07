@@ -23,24 +23,24 @@ import android.widget.Toast;
 
 import nanodegree.udacity.popularmovies.Utils.NotificationUtils;
 import nanodegree.udacity.popularmovies.database.MoviesContract;
-import nanodegree.udacity.popularmovies.databinding.ActivityFavoriteBinding;
+
 
 public class FavoriteActivity extends AppCompatActivity implements
         android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String BUNDLE_ID_KEY = "movie_id";
-    private ActivityFavoriteBinding activityFavoriteBinding;
+  //  private ActivityFavoriteBinding activityFavoriteBinding;
     private final Context mContext = this;
     private int theMovieId ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_favorite);
         ViewGroup parent = findViewById(R.id.coordinatorFavorite);
-        activityFavoriteBinding = DataBindingUtil.inflate(getLayoutInflater(),
-                R.layout.activity_favorite, parent, true);
-        activityFavoriteBinding = DataBindingUtil.setContentView(this, R.layout.activity_favorite);
+//        activityFavoriteBinding = DataBindingUtil.inflate(getLayoutInflater(),
+//                R.layout.activity_favorite, parent, true);
+//        activityFavoriteBinding = DataBindingUtil.setContentView(this, R.layout.activity_favorite);
 
         initFavoriteBars();
 
@@ -67,10 +67,10 @@ public class FavoriteActivity extends AppCompatActivity implements
     }
 
     private void initFavoriteBars() {
-        activityFavoriteBinding.collapsingToolBarFavorite.setExpandedTitleColor(getResources().
-                getColor(android.R.color.transparent));
-
-        setSupportActionBar(activityFavoriteBinding.toolbarFavorite);
+//        activityFavoriteBinding.collapsingToolBarFavorite.setExpandedTitleColor(getResources().
+//                getColor(android.R.color.transparent));
+//
+//        setSupportActionBar(activityFavoriteBinding.toolbarFavorite);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -151,14 +151,14 @@ public class FavoriteActivity extends AppCompatActivity implements
 
             String posterPath = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.POSTER_COLUMN));
             String POSTER_SIZE = "w780";
-            GlideApp.with(mContext).load(BuildConfig.POSTER_BASE_URL + POSTER_SIZE + posterPath)
-                    .into(activityFavoriteBinding.posterFavorite);
-
-            activityFavoriteBinding.posterFavorite.startAnimation(fadingAnim);
-
-            String movieTitle = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.TITLE_COLUMN));
-
-            activityFavoriteBinding.collapsingToolBarFavorite.setTitle(movieTitle);
+//            GlideApp.with(mContext).load(BuildConfig.POSTER_BASE_URL + POSTER_SIZE + posterPath)
+//                    .into(activityFavoriteBinding.posterFavorite);
+//
+//            activityFavoriteBinding.posterFavorite.startAnimation(fadingAnim);
+//
+//            String movieTitle = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.TITLE_COLUMN));
+//
+//            activityFavoriteBinding.collapsingToolBarFavorite.setTitle(movieTitle);
 
             double voteAverage = cursor.getDouble(cursor.getColumnIndex(MoviesContract.MoviesEntry.AVERAGE_COLUMN));
             float averageVoteInDouble = (float) voteAverage ;
