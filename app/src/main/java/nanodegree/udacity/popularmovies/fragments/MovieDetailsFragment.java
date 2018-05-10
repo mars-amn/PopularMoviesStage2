@@ -38,19 +38,22 @@ import nanodegree.udacity.popularmovies.BuildConfig;
 import nanodegree.udacity.popularmovies.GlideApp;
 import nanodegree.udacity.popularmovies.R;
 import nanodegree.udacity.popularmovies.adapters.ReviewsAdapter;
+import nanodegree.udacity.popularmovies.adapters.TrailersAdapter;
 import nanodegree.udacity.popularmovies.database.MoviesContract;
 import nanodegree.udacity.popularmovies.models.MovieImages;
 import nanodegree.udacity.popularmovies.models.MoviesResponse;
 import nanodegree.udacity.popularmovies.models.MoviesReviews;
+import nanodegree.udacity.popularmovies.models.MoviesTrailers;
 import nanodegree.udacity.popularmovies.models.Poster;
 import nanodegree.udacity.popularmovies.models.ReviewsResults;
+import nanodegree.udacity.popularmovies.models.TrailersResults;
 import nanodegree.udacity.popularmovies.rest.MoviesAPIUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MovieDetailsFragment extends Fragment {
+public class MovieDetailsFragment extends Fragment implements TrailersAdapter.onTrailerClickListener, TrailersAdapter.onTrailerLongClickListener{
     private static final String TAG = MovieDetailsFragment.class.getSimpleName();
     private static final String MOVIE_KEY = "nanodegree.udacity.popularmovies.fragments.movie";
     @BindView(R.id.addOrRemoveFab)
@@ -71,14 +74,15 @@ public class MovieDetailsFragment extends Fragment {
     TextView mAverageVoteTextView;
     @BindView(R.id.recyclerViewReviews)
     RecyclerView mReviewsRecyclerView;
+    @BindView(R.id.recyclerViewTrailers)
+    RecyclerView mTrailersRecyclerView;
     private Context mContext;
     private MoviesResponse mMovie;
     private List<Poster> mMoviePosters;
-    private MoviesReviews mMovieReviewResponse;
     private Animation mZoomInAnimation;
     private Animation mFadeOutAnimation;
     private ReviewsAdapter mReviewsAdapter;
-
+    private TrailersAdapter mTrailersAdapter;
     public MovieDetailsFragment() {
     }
 
@@ -88,9 +92,7 @@ public class MovieDetailsFragment extends Fragment {
         }
         if (context instanceof Activity) {
             final Activity activity = (Activity) context;
-            if (activity.isDestroyed() || activity.isFinishing()) {
-                return false;
-            }
+            return !activity.isDestroyed() && !activity.isFinishing();
         }
         return true;
     }
@@ -108,18 +110,49 @@ public class MovieDetailsFragment extends Fragment {
         if (savedInstanceState != null) {
             mMovie = savedInstanceState.getParcelable(MOVIE_KEY);
         }
-        setupFavoriteFab();
         initDetailsBars();
+        setupFavoriteFab();
+        deployMovieDetails();
         initRecyclerViews();
         loadMoviePosters();
-        deployMovieDetails();
         loadMovieReviews();
+        loadMovieTrailers();
         return movieDetailsView;
+    }
+
+    private void loadMovieTrailers() {
+        MoviesAPIUtils.getRESTMovies().getMovieTrailers(mMovie.getId(),BuildConfig.TMDB_API_KEY)
+                .enqueue(new Callback<MoviesTrailers>() {
+                    @Override
+                    public void onResponse(Call<MoviesTrailers> call, Response<MoviesTrailers> response) {
+                        if (response.isSuccessful()){
+                            if (response.body() != null){
+                                deployMovieTrailers(response.body());
+                            }
+                        }else {
+                            Log.d(TAG,"trailer response code = " + response.code());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MoviesTrailers> call, Throwable t) {
+
+                    }
+                });
+    }
+
+    private void deployMovieTrailers(MoviesTrailers body) {
+        mTrailersAdapter.updateTrailers(body);
+        LayoutAnimationController slideToLeft = AnimationUtils.loadLayoutAnimation(mContext,R.anim.layout_animation_slide_to_left);
+        mTrailersRecyclerView.setLayoutAnimation(slideToLeft);
     }
 
     private void initRecyclerViews() {
         mReviewsAdapter = new ReviewsAdapter(mContext, new ArrayList<ReviewsResults>(0));
         mReviewsRecyclerView.setAdapter(mReviewsAdapter);
+        mTrailersAdapter = new TrailersAdapter(mContext,new ArrayList<TrailersResults>(0),
+                this,this);
+        mTrailersRecyclerView.setAdapter(mTrailersAdapter);
     }
 
     private void loadMovieReviews() {
@@ -129,8 +162,7 @@ public class MovieDetailsFragment extends Fragment {
                     public void onResponse(Call<MoviesReviews> call, Response<MoviesReviews> response) {
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
-                                mMovieReviewResponse = response.body();
-                                deployMovieReviews(mMovieReviewResponse);
+                                deployMovieReviews(response.body());
                             }
                         } else {
                             Log.d(TAG, "response code = " + response.code());
@@ -304,5 +336,15 @@ public class MovieDetailsFragment extends Fragment {
                 null);
 
         return cursor.getCount() > 0;
+    }
+
+    @Override
+    public void onTrailerLongClick(String key) {
+
+    }
+
+    @Override
+    public void onTrailerClick(String key) {
+
     }
 }

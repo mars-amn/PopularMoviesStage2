@@ -1,87 +1,107 @@
 package nanodegree.udacity.popularmovies.adapters;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import nanodegree.udacity.popularmovies.GlideApp;
+import nanodegree.udacity.popularmovies.R;
+import nanodegree.udacity.popularmovies.models.MoviesTrailers;
+import nanodegree.udacity.popularmovies.models.TrailersResults;
+
 /**
  * Created by AbdullahAtta on 3/8/2018.
  */
-//
-//public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.trailerViewHolder>{
-//
-//    private static final String YOUTUBE_THUMBNAIL_URL = "http://img.youtube.com/vi/";
-//    private static final String YOUTUBE_THUMBNAIL_QUALITY_URL = "/sddefault.jpg";
-//    private onTrailerClickListener mListener;
-//    private onTrailerLongClickListener mLongListener;
-//    private Context mContext;
-//    private List<String> mTrailersKeys;
-//
-//        public TrailersAdapter(Context context, List<String> trailers, onTrailerClickListener listener,
-//                               onTrailerLongClickListener longListener){
-//            mContext = context;
-//            mTrailersKeys = trailers;
-//            mListener = listener;
-//            mLongListener = longListener;
-//        }
-//
-//    public interface onTrailerLongClickListener{
-//        void onTrailerLongClick(String key); // to share the trailer link.
-//    }
-//
-//    public interface onTrailerClickListener{
-//        void onTrailerClick(String key);
-//    }
-//
-//    @Override
-//    public trailerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//            LayoutInflater inflater =LayoutInflater.from(mContext);
-//
-//        TrailersListBinding binding = TrailersListBinding.inflate(inflater,parent,false);
-//        final trailerViewHolder viewHolder= new trailerViewHolder(binding);
-//
-//        binding.youtubeTrailerThumbnailImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mListener.onTrailerClick(mTrailersKeys.get(viewHolder.getAdapterPosition()));
-//            }
-//        });
-//
-//        binding.youtubeTrailerThumbnailImageView.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View view) {
-//                mLongListener.onTrailerLongClick(mTrailersKeys.get(viewHolder.getAdapterPosition()));
-//                return true;
-//            }
-//        });
-//        return viewHolder;
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(trailerViewHolder holder, int position) {
-//
-//        String trailerThumbnail = YOUTUBE_THUMBNAIL_URL + mTrailersKeys.get(position) +
-//                YOUTUBE_THUMBNAIL_QUALITY_URL;
-//        holder.bindView(trailerThumbnail);
-//
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        return mTrailersKeys.size();
-//    }
-//
-//    public class trailerViewHolder extends RecyclerView.ViewHolder{
-//
-//        TrailersListBinding trailersListBinding;
-//        public trailerViewHolder(TrailersListBinding binding) {
-//            super(binding.getRoot());
-//            trailersListBinding = binding;
-//        }
-//        private void bindView(String trailerThumbnail){
-//            GlideApp.with(mContext)
-//                    .load(trailerThumbnail)
-//                    .placeholder(R.mipmap.ic_launcher)
-//                    .error(R.mipmap.ic_launcher)
-//                    .into(trailersListBinding.youtubeTrailerThumbnailImageView);
-//
-//            trailersListBinding.executePendingBindings();
-//        }
-//    }
-//}
+
+public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.trailerViewHolder> {
+    private static final String YOUTUBE_THUMBNAIL_URL = "http://img.youtube.com/vi/";
+    private static final String YOUTUBE_THUMBNAIL_QUALITY_URL = "/sddefault.jpg";
+    private onTrailerClickListener mListener;
+    private onTrailerLongClickListener mLongListener;
+    private Context mContext;
+    private List<TrailersResults> mTrailersResultList;
+
+    public TrailersAdapter(Context context, List<TrailersResults> trailers, onTrailerClickListener listener,
+                           onTrailerLongClickListener longListener) {
+        mContext = context;
+        mTrailersResultList = trailers;
+        mListener = listener;
+        mLongListener = longListener;
+    }
+
+    public void updateTrailers(MoviesTrailers body) {
+        if (body != null){
+            mTrailersResultList = body.getResults();
+            notifyDataSetChanged();
+        }
+    }
+
+    public interface onTrailerLongClickListener {
+        void onTrailerLongClick(String key);
+    }
+
+    public interface onTrailerClickListener {
+        void onTrailerClick(String key);
+    }
+
+    @Override
+    public trailerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View trailersView = LayoutInflater.from(mContext).inflate(R.layout.trailers_list, parent, false);
+        final trailerViewHolder holder = new trailerViewHolder(trailersView);
+        holder.mTrailerThumbnailImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onTrailerClick(mTrailersResultList.get(holder.getAdapterPosition()).getKey());
+            }
+        });
+
+        holder.mTrailerThumbnailImageView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                mLongListener.onTrailerLongClick(mTrailersResultList.get(holder.getAdapterPosition()).getKey());
+                return true;
+            }
+        });
+        return holder;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull trailerViewHolder holder, int position) {
+        String trailerKey = mTrailersResultList.get(position).getKey();
+        String trailerThumbnail = YOUTUBE_THUMBNAIL_URL + trailerKey +
+                YOUTUBE_THUMBNAIL_QUALITY_URL;
+        holder.bindView(trailerThumbnail);
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return mTrailersResultList.size();
+    }
+
+    public class trailerViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.youtubeTrailerThumbnailImageView)
+        ImageView mTrailerThumbnailImageView;
+
+        public trailerViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        private void bindView(String trailerThumbnail) {
+            GlideApp.with(mContext)
+                    .load(trailerThumbnail)
+                    .placeholder(R.mipmap.ic_launcher)
+                    .error(R.mipmap.ic_launcher)
+                    .into(mTrailerThumbnailImageView);
+        }
+    }
+}
