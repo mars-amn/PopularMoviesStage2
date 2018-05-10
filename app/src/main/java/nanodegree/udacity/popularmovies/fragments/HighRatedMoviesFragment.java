@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 
 import java.util.ArrayList;
 
@@ -49,7 +51,7 @@ public class HighRatedMoviesFragment extends Fragment implements MoviesAdapter.o
         setupViews();
 
         if (mMoviesResponse != null) {
-            mAdapter.updatePosters(mMoviesResponse.getMovieDetails());
+           deployMovies(mMoviesResponse);
         } else {
             loadHighRatedMovies();
         }
@@ -64,7 +66,7 @@ public class HighRatedMoviesFragment extends Fragment implements MoviesAdapter.o
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
                                 mMoviesResponse = response.body();
-                                mAdapter.updatePosters(mMoviesResponse.getMovieDetails());
+                                deployMovies(mMoviesResponse);
                             }
                         } else {
                             Log.d(TAG, "response code = " + response.code());
@@ -78,10 +80,16 @@ public class HighRatedMoviesFragment extends Fragment implements MoviesAdapter.o
                 });
     }
 
+    private void deployMovies(MoviesResults mMoviesResponse) {
+        mAdapter.updatePosters(mMoviesResponse.getMovieDetails());
+        LayoutAnimationController slideUp = AnimationUtils.loadLayoutAnimation(mContext, R.anim.layout_animation_slide_up);
+        mMoviesRecyclerView.setLayoutAnimation(slideUp);
+    }
+
     private void setupViews() {
         mMoviesLayoutManager = new GridLayoutManager(mContext, 2);
-        mAdapter = new MoviesAdapter(mContext, new ArrayList<MoviesResponse>(0), this);
         mMoviesRecyclerView.setLayoutManager(mMoviesLayoutManager);
+        mAdapter = new MoviesAdapter(mContext, new ArrayList<MoviesResponse>(0), this);
         mMoviesRecyclerView.setAdapter(mAdapter);
     }
 

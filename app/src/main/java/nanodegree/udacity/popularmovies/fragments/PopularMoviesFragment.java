@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -53,7 +55,7 @@ public class PopularMoviesFragment extends Fragment implements MoviesAdapter.onM
         mContext = getContext();
         setUpViews();
         if (mMoviesResponse != null) {
-            mMoviesAdapter.updatePosters(mMoviesResponse.getMovieDetails());
+            deployMovies(mMoviesResponse);
         } else {
             loadMovies();
         }
@@ -61,9 +63,9 @@ public class PopularMoviesFragment extends Fragment implements MoviesAdapter.onM
     }
 
     private void setUpViews() {
-        mMoviesAdapter = new MoviesAdapter(mContext, new ArrayList<MoviesResponse>(0), this);
         mMoviesLayoutManager = new GridLayoutManager(mContext, 2);
         mMoviesRecyclerView.setLayoutManager(mMoviesLayoutManager);
+        mMoviesAdapter = new MoviesAdapter(mContext, new ArrayList<MoviesResponse>(0), this);
         mMoviesRecyclerView.setAdapter(mMoviesAdapter);
     }
 
@@ -75,7 +77,7 @@ public class PopularMoviesFragment extends Fragment implements MoviesAdapter.onM
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
                                 mMoviesResponse = response.body();
-                                mMoviesAdapter.updatePosters(response.body().getMovieDetails());
+                                deployMovies(mMoviesResponse);
                             }
                         } else {
                             Log.d(TAG, "response code = " + response.code());
@@ -87,6 +89,12 @@ public class PopularMoviesFragment extends Fragment implements MoviesAdapter.onM
                         Log.d(TAG, t.getMessage());
                     }
                 });
+    }
+
+    private void deployMovies(MoviesResults mMoviesResponse) {
+        mMoviesAdapter.updatePosters(mMoviesResponse.getMovieDetails());
+        LayoutAnimationController slideUp = AnimationUtils.loadLayoutAnimation(mContext, R.anim.layout_animation_slide_up);
+        mMoviesRecyclerView.setLayoutAnimation(slideUp);
     }
 
     @Override

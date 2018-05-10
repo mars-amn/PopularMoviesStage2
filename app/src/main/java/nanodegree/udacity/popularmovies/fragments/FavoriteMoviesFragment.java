@@ -15,6 +15,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.LinearLayout;
 
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
@@ -70,16 +72,19 @@ public class FavoriteMoviesFragment extends Fragment implements FavoriteAdapter.
         View favoriteMoviesView = inflater.inflate(R.layout.main_movies_fragment, container, false);
         ButterKnife.bind(this, favoriteMoviesView);
         mContext = getContext();
-        mMoviesLayoutManager = new GridLayoutManager(mContext, 2);
+
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.restartLoader(0, null, cursorLoaderCallbacks);
         return favoriteMoviesView;
     }
 
     private void setupViews(Cursor favoriteMoviesCursor) {
-        mAdapter = new FavoriteAdapter(mContext, favoriteMoviesCursor, this, this);
+        mMoviesLayoutManager = new GridLayoutManager(mContext, 2);
         mFavoriteMoviesRecyclerView.setLayoutManager(mMoviesLayoutManager);
+        mAdapter = new FavoriteAdapter(mContext, favoriteMoviesCursor, this, this);
         mFavoriteMoviesRecyclerView.setAdapter(mAdapter);
+        LayoutAnimationController slideUp = AnimationUtils.loadLayoutAnimation(mContext, R.anim.layout_animation_slide_up);
+        mFavoriteMoviesRecyclerView.setLayoutAnimation(slideUp);
     }
 
     @Override

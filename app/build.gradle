@@ -42,17 +42,17 @@ dependencies {
     // Espresso test library and JUnit
     androidTestImplementation 'com.android.support.test:runner:' + rootProject.librariesVersions.runnerVersion
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:' + rootProject.librariesVersions.espressoTestLibraryVersion
-    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:' + rootProject.librariesVersions.espressoTestLibraryVersion
-    compile 'com.android.support.test.espresso:espresso-idling-resource:' + rootProject.librariesVersions.espressoTestLibraryVersion
-    androidTestCompile 'com.android.support.test.espresso:espresso-intents:' + rootProject.librariesVersions.espressoTestLibraryVersion
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:' + rootProject.librariesVersions.espressoTestLibraryVersion
+    implementation 'com.android.support.test.espresso:espresso-idling-resource:' + rootProject.librariesVersions.espressoTestLibraryVersion
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:' + rootProject.librariesVersions.espressoTestLibraryVersion
     testImplementation 'junit:junit:' + rootProject.librariesVersions.jUnitVersion
 
     //retrofit library
     implementation 'com.squareup.retrofit2:retrofit:' + rootProject.librariesVersions.retrofitLibraryVersion
-    compile 'com.squareup.retrofit2:converter-gson:' + rootProject.librariesVersions.retrofitLibraryVersion
+    implementation 'com.squareup.retrofit2:converter-gson:' + rootProject.librariesVersions.retrofitLibraryVersion
 
     // Gson 'Parsing JSON library'
-    compile 'com.google.code.gson:gson:' + rootProject.librariesVersions.gsonLibraryVersion
+    implementation 'com.google.code.gson:gson:' + rootProject.librariesVersions.gsonLibraryVersion
 
     // butterKnife
     implementation 'com.jakewharton:butterknife:' + rootProject.librariesVersions.butterKnifeLibraryVersion
@@ -63,15 +63,15 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:' + rootProject.librariesVersions.glideLibraryVersion
 
     //fitChart library
-    compile 'com.txusballesteros:FitChart:' + rootProject.librariesVersions.fitChartLibrary
+    implementation 'com.txusballesteros:FitChart:' + rootProject.librariesVersions.fitChartLibrary
 
     implementation 'com.github.thomper:sweet-alert-dialog:v' + rootProject.librariesVersions.sweetAlertDialogLibrary
 
     implementation 'com.squareup.okhttp3:okhttp:3.9.1'
 
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 repositories {
     mavenCentral()

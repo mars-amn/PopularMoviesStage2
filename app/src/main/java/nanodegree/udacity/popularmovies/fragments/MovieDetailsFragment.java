@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -129,7 +130,7 @@ public class MovieDetailsFragment extends Fragment {
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
                                 mMovieReviewResponse = response.body();
-                                mReviewsAdapter.updateReviews(mMovieReviewResponse.getResults());
+                                deployMovieReviews(mMovieReviewResponse);
                             }
                         } else {
                             Log.d(TAG, "response code = " + response.code());
@@ -141,6 +142,12 @@ public class MovieDetailsFragment extends Fragment {
 
                     }
                 });
+    }
+
+    private void deployMovieReviews(MoviesReviews mMovieReviewResponse) {
+        mReviewsAdapter.updateReviews(mMovieReviewResponse.getResults());
+        LayoutAnimationController slideUp = AnimationUtils.loadLayoutAnimation(mContext, R.anim.layout_animation_slide_up);
+        mReviewsRecyclerView.setLayoutAnimation(slideUp);
     }
 
     private void setupFavoriteFab() {
