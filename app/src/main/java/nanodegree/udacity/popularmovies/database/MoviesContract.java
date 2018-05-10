@@ -8,11 +8,11 @@ import android.net.Uri;
 
 public final class MoviesContract {
 
-    private MoviesContract(){}
-
     public static final String PROVIDER_AUTHORITY = "nanodegree.udacity.popularmovies.database";
-    private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + PROVIDER_AUTHORITY);
     public static final String PATH_MOVIES = "favoriteMovies";
+    private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + PROVIDER_AUTHORITY);
+    private MoviesContract() {
+    }
 
     public static class MoviesEntry {
 

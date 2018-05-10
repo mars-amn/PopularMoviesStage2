@@ -14,6 +14,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,20 +27,22 @@ import android.widget.TextView;
 
 import com.txusballesteros.widgets.FitChart;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nanodegree.udacity.popularmovies.BuildConfig;
-
-
 import nanodegree.udacity.popularmovies.GlideApp;
 import nanodegree.udacity.popularmovies.R;
+import nanodegree.udacity.popularmovies.adapters.ReviewsAdapter;
 import nanodegree.udacity.popularmovies.database.MoviesContract;
 import nanodegree.udacity.popularmovies.models.MovieImages;
 import nanodegree.udacity.popularmovies.models.MoviesResponse;
+import nanodegree.udacity.popularmovies.models.MoviesReviews;
 import nanodegree.udacity.popularmovies.models.Poster;
+import nanodegree.udacity.popularmovies.models.ReviewsResults;
 import nanodegree.udacity.popularmovies.rest.MoviesAPIUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -65,11 +68,15 @@ public class MovieDetailsFragment extends Fragment {
     FitChart mRateChartFitChart;
     @BindView(R.id.averageVoteLabelTextView)
     TextView mAverageVoteTextView;
+    @BindView(R.id.recyclerViewReviews)
+    RecyclerView mReviewsRecyclerView;
     private Context mContext;
     private MoviesResponse mMovie;
     private List<Poster> mMoviePosters;
+    private MoviesReviews mMovieReviewResponse;
     private Animation mZoomInAnimation;
     private Animation mFadeOutAnimation;
+    private ReviewsAdapter mReviewsAdapter;
 
     public MovieDetailsFragment() {
     }
@@ -102,9 +109,38 @@ public class MovieDetailsFragment extends Fragment {
         }
         setupFavoriteFab();
         initDetailsBars();
+        initRecyclerViews();
         loadMoviePosters();
         deployMovieDetails();
+        loadMovieReviews();
         return movieDetailsView;
+    }
+
+    private void initRecyclerViews() {
+        mReviewsAdapter = new ReviewsAdapter(mContext, new ArrayList<ReviewsResults>(0));
+        mReviewsRecyclerView.setAdapter(mReviewsAdapter);
+    }
+
+    private void loadMovieReviews() {
+        MoviesAPIUtils.getRESTMovies().getMovieReviews(mMovie.getId(), BuildConfig.TMDB_API_KEY)
+                .enqueue(new Callback<MoviesReviews>() {
+                    @Override
+                    public void onResponse(Call<MoviesReviews> call, Response<MoviesReviews> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body() != null) {
+                                mMovieReviewResponse = response.body();
+                                mReviewsAdapter.updateReviews(mMovieReviewResponse.getResults());
+                            }
+                        } else {
+                            Log.d(TAG, "response code = " + response.code());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MoviesReviews> call, Throwable t) {
+
+                    }
+                });
     }
 
     private void setupFavoriteFab() {

@@ -8,11 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import nanodegree.udacity.popularmovies.BuildConfig;
-
 import nanodegree.udacity.popularmovies.GlideApp;
 import nanodegree.udacity.popularmovies.R;
 import nanodegree.udacity.popularmovies.database.MoviesContract;
@@ -32,14 +30,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         mContext = context;
         mListener = listener;
         mLongListener = longListener;
-    }
-
-    public interface onFavoriteMovieClick {
-        void onFavoriteMovieClickListener(int Id);
-    }
-
-    public interface onFavoriteMovieLongClick {
-        void onFavoriteMovieLongClickListener(int Id); // to delete the movie from the list
     }
 
     @Override
@@ -84,6 +74,14 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     @Override
     public int getItemCount() {
         return mCursor.getCount();
+    }
+
+    public interface onFavoriteMovieClick {
+        void onFavoriteMovieClickListener(int Id);
+    }
+
+    public interface onFavoriteMovieLongClick {
+        void onFavoriteMovieLongClickListener(int Id); // to delete the movie from the list
     }
 
     public class FavoriteViewHolder extends RecyclerView.ViewHolder {

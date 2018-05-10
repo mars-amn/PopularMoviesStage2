@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -30,17 +30,17 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".MainActivity" />
         </activity>
 
         <activity
             android:name=".SettingsActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/SettingsTheme"/>
+            android:theme="@style/SettingsTheme" />
 
         <activity
             android:name=".FavoriteActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
 
         <provider
             android:name=".database.MoviesContentProvider"
@@ -53,7 +53,7 @@
 
         <service
             android:name=".services.NotificationServices"
-            android:exported="false"/>
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"

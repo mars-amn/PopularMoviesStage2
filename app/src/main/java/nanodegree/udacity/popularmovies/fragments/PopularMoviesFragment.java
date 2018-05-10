@@ -92,7 +92,7 @@ public class PopularMoviesFragment extends Fragment implements MoviesAdapter.onM
     @Override
     public void onMovieClickListener(MoviesResponse movie) {
         Intent selectedMovieIntent = new Intent(mContext, DetailsActivity.class);
-        selectedMovieIntent.putExtra(MOVIE_INTENT_KEY,movie);
+        selectedMovieIntent.putExtra(MOVIE_INTENT_KEY, movie);
         startActivity(selectedMovieIntent);
     }
 

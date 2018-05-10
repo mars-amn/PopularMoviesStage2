@@ -21,12 +21,12 @@ import okhttp3.Response;
  * Created by AbdullahAtta on 3/14/2018.
  */
 /*
-* the service class that responsible for fetching the latest movie exists
-* on TheMovieDb.org
-*/
+ * the service class that responsible for fetching the latest movie exists
+ * on TheMovieDb.org
+ */
 public class NotificationServices extends JobService {
 
-    private AsyncTask<Void,Void,Movies> task;
+    private AsyncTask<Void, Void, Movies> task;
 
     @Override
     public boolean onStartJob(final JobParameters job) {
@@ -37,7 +37,7 @@ public class NotificationServices extends JobService {
                 Context context = NotificationServices.this;
                 Uri moviesUri = Uri.parse(BuildConfig.BASE_URL).buildUpon()
                         .appendPath("latest")
-                        .appendQueryParameter("api_key",BuildConfig.TMDB_API_KEY)
+                        .appendQueryParameter("api_key", BuildConfig.TMDB_API_KEY)
                         .build();
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder()
@@ -48,7 +48,7 @@ public class NotificationServices extends JobService {
                     Response response = client.newCall(request).execute();
                     String JsonData = response.body().string();
                     movie = JsonUtils.JSONMoviesLatestForNotification(JsonData);
-                    NotificationUtils.launchNotification(context,movie);
+                    NotificationUtils.launchNotification(context, movie);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -57,7 +57,7 @@ public class NotificationServices extends JobService {
 
             @Override
             protected void onPostExecute(Movies movies) {
-                jobFinished(job,false);
+                jobFinished(job, false);
             }
         };
 
@@ -67,7 +67,7 @@ public class NotificationServices extends JobService {
 
     @Override
     public boolean onStopJob(JobParameters job) {
-        if (task!=null)
+        if (task != null)
             task.cancel(true);
 
         return true;

@@ -14,8 +14,8 @@ import nanodegree.udacity.popularmovies.models.MoviesResponse;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    private MoviesResponse mMovie;
     MovieDetailsFragment mMovieFragment;
+    private MoviesResponse mMovie;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

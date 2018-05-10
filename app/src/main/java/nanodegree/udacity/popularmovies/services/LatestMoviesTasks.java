@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 public class LatestMoviesTasks extends IntentService {
 
     public static final String ACTION_DISMISS_NOTIFICATION = "clear";
+
     public LatestMoviesTasks() {
         super("LatestMoviesTasks");
     }
@@ -20,7 +21,7 @@ public class LatestMoviesTasks extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         String action = intent.getAction();
-        if (action.equals(ACTION_DISMISS_NOTIFICATION)){
+        if (action.equals(ACTION_DISMISS_NOTIFICATION)) {
             dismissTheNotification(this);
         }
     }

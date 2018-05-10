@@ -9,6 +9,21 @@ import com.google.gson.annotations.SerializedName;
 
 public class MovieDetails implements Parcelable {
 
+    public final static Parcelable.Creator<MovieDetails> CREATOR = new Creator<MovieDetails>() {
+
+
+        @SuppressWarnings({
+                "unchecked"
+        })
+        public MovieDetails createFromParcel(Parcel in) {
+            return new MovieDetails(in);
+        }
+
+        public MovieDetails[] newArray(int size) {
+            return (new MovieDetails[size]);
+        }
+
+    };
     @SerializedName("adult")
     @Expose
     private Boolean adult;
@@ -45,21 +60,6 @@ public class MovieDetails implements Parcelable {
     @SerializedName("vote_count")
     @Expose
     private Integer voteCount;
-    public final static Parcelable.Creator<MovieDetails> CREATOR = new Creator<MovieDetails>() {
-
-
-        @SuppressWarnings({
-                "unchecked"
-        })
-        public MovieDetails createFromParcel(Parcel in) {
-            return new MovieDetails(in);
-        }
-
-        public MovieDetails[] newArray(int size) {
-            return (new MovieDetails[size]);
-        }
-
-    };
 
     protected MovieDetails(Parcel in) {
         this.adult = ((Boolean) in.readValue((Boolean.class.getClassLoader())));

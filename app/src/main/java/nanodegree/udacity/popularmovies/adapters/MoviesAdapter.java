@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import nanodegree.udacity.popularmovies.BuildConfig;
-
-
 import nanodegree.udacity.popularmovies.GlideApp;
 import nanodegree.udacity.popularmovies.R;
 import nanodegree.udacity.popularmovies.models.MoviesResponse;
@@ -22,10 +21,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieListV
     private final Context mContext;
     private List<MoviesResponse> mMoviesList;
     private onMoviePosterClicked mPosterClickListener;
-
-    public interface onMoviePosterClicked {
-        void onMovieClickListener(MoviesResponse movie);
-    }
 
     public MoviesAdapter(Context mContexts, List<MoviesResponse> moviesLists,
                          onMoviePosterClicked listener) {
@@ -47,7 +42,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieListV
         return holder;
     }
 
-
     @Override
     public void onBindViewHolder(MovieListVHolder holder, int position) {
         // available sizes for the posters are "w320" , "w500" , "w780"
@@ -68,6 +62,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieListV
     @Override
     public int getItemCount() {
         return mMoviesList.size();
+    }
+
+    public interface onMoviePosterClicked {
+        void onMovieClickListener(MoviesResponse movie);
     }
 
     public class MovieListVHolder extends RecyclerView.ViewHolder {

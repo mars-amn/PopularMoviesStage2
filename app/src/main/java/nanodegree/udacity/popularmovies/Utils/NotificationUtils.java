@@ -21,26 +21,25 @@ import nanodegree.udacity.popularmovies.R;
 import nanodegree.udacity.popularmovies.services.LatestMoviesTasks;
 
 
-
 public class NotificationUtils {
 
     public static final String INTENT_EXTRA_KEY = "movie";
     private static final int NOTIFICATION_ID = 1;
     private static final String NOTIFICATION_CHANNEL_ID = "latest-movies";
-    private static final String NOTIFICATION_CHANNEL_NAME ="Latest Movies";
+    private static final String NOTIFICATION_CHANNEL_NAME = "Latest Movies";
     private static final int PENDING_INTENT_REQUEST_CODE_ACTION_DISMISS = 1;
     private static final int PENDING_INTENT_REQUEST_CODE_ACTION_OPEN = 1;
     private static final String POSTER_SIZE = "w780";
 
 
-    public static void launchNotification(Context context, Movies latestMovie){
+    public static void launchNotification(Context context, Movies latestMovie) {
 
         if (!PreferenceUtils.isUserEnableNotification(context)) return;
 
-        NotificationManager notificationManager =(NotificationManager)
+        NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel oreoChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID,
                     NOTIFICATION_CHANNEL_NAME,
                     NotificationManager.IMPORTANCE_HIGH);
@@ -48,37 +47,37 @@ public class NotificationUtils {
         }
 
         try {
-            NotificationCompat.Builder notification = new NotificationCompat.Builder(context,NOTIFICATION_CHANNEL_ID)
+            NotificationCompat.Builder notification = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
                     .setContentTitle(context.getString(R.string.notification_title_label) + latestMovie.getTitle())
                     .setContentText(latestMovie.getOverView())
                     .setSmallIcon(R.drawable.ic_movie_24dp)
                     .setAutoCancel(true)
                     .addAction(dismissAction(context))
-                    .addAction(openMovieAction(context,latestMovie))
-                    .setContentIntent(contentPendingIntent(context,latestMovie))
+                    .addAction(openMovieAction(context, latestMovie))
+                    .setContentIntent(contentPendingIntent(context, latestMovie))
                     .setLargeIcon(Picasso.with(context).load(BuildConfig.POSTER_BASE_URL + POSTER_SIZE +
                             latestMovie.getPosterPath()).get())
                     .setStyle(new NotificationCompat.BigPictureStyle()
-                    .bigLargeIcon(Picasso.with(context).load(BuildConfig.POSTER_BASE_URL + POSTER_SIZE +
-                            latestMovie.getPosterPath()).get())
-                    .bigPicture(Picasso.with(context).load(BuildConfig.POSTER_BASE_URL + POSTER_SIZE +
-                            latestMovie.getPosterPath()).get())
-                    .setSummaryText(latestMovie.getTitle())
-                    .setBigContentTitle(latestMovie.getOverView()))
-                    .setColor(ContextCompat.getColor(context,R.color.colorAccent))
+                            .bigLargeIcon(Picasso.with(context).load(BuildConfig.POSTER_BASE_URL + POSTER_SIZE +
+                                    latestMovie.getPosterPath()).get())
+                            .bigPicture(Picasso.with(context).load(BuildConfig.POSTER_BASE_URL + POSTER_SIZE +
+                                    latestMovie.getPosterPath()).get())
+                            .setSummaryText(latestMovie.getTitle())
+                            .setBigContentTitle(latestMovie.getOverView()))
+                    .setColor(ContextCompat.getColor(context, R.color.colorAccent))
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setPriority(NotificationCompat.PRIORITY_HIGH);
 
-            notificationManager.notify(NOTIFICATION_ID,notification.build());
+            notificationManager.notify(NOTIFICATION_ID, notification.build());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    private static PendingIntent contentPendingIntent(Context context,Movies movie){
-        Intent iMovie = new Intent(context,DetailsActivity.class);
-        iMovie.putExtra(INTENT_EXTRA_KEY,movie);
+    private static PendingIntent contentPendingIntent(Context context, Movies movie) {
+        Intent iMovie = new Intent(context, DetailsActivity.class);
+        iMovie.putExtra(INTENT_EXTRA_KEY, movie);
 
         return PendingIntent.getActivity(context,
                 PENDING_INTENT_REQUEST_CODE_ACTION_OPEN,
@@ -86,8 +85,8 @@ public class NotificationUtils {
                 PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
-    private static NotificationCompat.Action dismissAction(Context context){
-        Intent iDismiss = new Intent(context,LatestMoviesTasks.class);
+    private static NotificationCompat.Action dismissAction(Context context) {
+        Intent iDismiss = new Intent(context, LatestMoviesTasks.class);
         iDismiss.setAction(LatestMoviesTasks.ACTION_DISMISS_NOTIFICATION);
 
         PendingIntent pendingIntent = PendingIntent.getService(context,
@@ -101,9 +100,9 @@ public class NotificationUtils {
 
     }
 
-    private static NotificationCompat.Action openMovieAction(Context context,Movies movie){
+    private static NotificationCompat.Action openMovieAction(Context context, Movies movie) {
         Intent iMovie = new Intent(context, DetailsActivity.class);
-        iMovie.putExtra(INTENT_EXTRA_KEY,movie);
+        iMovie.putExtra(INTENT_EXTRA_KEY, movie);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 PENDING_INTENT_REQUEST_CODE_ACTION_OPEN,

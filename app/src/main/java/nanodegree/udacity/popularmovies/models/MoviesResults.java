@@ -12,18 +12,6 @@ import java.util.List;
 
 public class MoviesResults implements Parcelable {
 
-    @SerializedName("page")
-    @Expose
-    private Integer page;
-    @SerializedName("total_results")
-    @Expose
-    private Integer totalResults;
-    @SerializedName("total_pages")
-    @Expose
-    private Integer totalPages;
-    @SerializedName("results")
-    @Expose
-    private List<MoviesResponse> movieDetails = new ArrayList<>();
     public final static Parcelable.Creator<MoviesResults> CREATOR = new Creator<MoviesResults>() {
 
 
@@ -39,6 +27,18 @@ public class MoviesResults implements Parcelable {
         }
 
     };
+    @SerializedName("page")
+    @Expose
+    private Integer page;
+    @SerializedName("total_results")
+    @Expose
+    private Integer totalResults;
+    @SerializedName("total_pages")
+    @Expose
+    private Integer totalPages;
+    @SerializedName("results")
+    @Expose
+    private List<MoviesResponse> movieDetails = new ArrayList<>();
 
     protected MoviesResults(Parcel in) {
         this.page = ((Integer) in.readValue((Integer.class.getClassLoader())));

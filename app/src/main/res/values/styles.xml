@@ -11,12 +11,13 @@
     </style>
 
 
-   <style name="SettingsTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-       <item name="colorPrimary">@color/colorPrimary</item>
-       <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-       <item name="colorAccent">@color/colorAccent</item>
-       <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
-   </style>
+    <style name="SettingsTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+
     <style name="fabStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -25,9 +26,6 @@
         <item name="pressedTranslationZ">12dp</item>
         <item name="rippleColor">@color/offWhiteBackground</item>
     </style>
-    
-    
 
-    
 
 </resources>

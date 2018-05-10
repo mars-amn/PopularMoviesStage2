@@ -34,6 +34,32 @@ public class FavoriteMoviesFragment extends Fragment implements FavoriteAdapter.
     Context mContext;
     RecyclerView.LayoutManager mMoviesLayoutManager;
     private FavoriteAdapter mAdapter;
+    private LoaderManager.LoaderCallbacks<Cursor> cursorLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>() {
+
+        @Override
+        public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+            return new CursorLoader(mContext,
+                    MoviesContract.MoviesEntry.CONTENT_URI,
+                    null,
+                    null,
+                    null,
+                    null);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+            if (data.getCount() != 0) {
+                setupViews(data);
+            } else {
+                mFavoriteMoviesRecyclerView.setVisibility(View.GONE);
+                mEmptyState.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        public void onLoaderReset(Loader<Cursor> loader) {
+        }
+    };
 
     public FavoriteMoviesFragment() {
     }
@@ -93,33 +119,6 @@ public class FavoriteMoviesFragment extends Fragment implements FavoriteAdapter.
         mContext.getContentResolver().delete(MOVIE_WITH_ID, null, null);
 
     }
-
-    private LoaderManager.LoaderCallbacks<Cursor> cursorLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>() {
-
-        @Override
-        public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-            return new CursorLoader(mContext,
-                    MoviesContract.MoviesEntry.CONTENT_URI,
-                    null,
-                    null,
-                    null,
-                    null);
-        }
-
-        @Override
-        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-            if (data.getCount() != 0) {
-                setupViews(data);
-            } else {
-                mFavoriteMoviesRecyclerView.setVisibility(View.GONE);
-                mEmptyState.setVisibility(View.VISIBLE);
-            }
-        }
-
-        @Override
-        public void onLoaderReset(Loader<Cursor> loader) {
-        }
-    };
 
 
 }

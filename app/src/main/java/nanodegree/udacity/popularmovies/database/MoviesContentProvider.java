@@ -16,19 +16,17 @@ import android.support.annotation.Nullable;
 
 public class MoviesContentProvider extends ContentProvider {
 
-    private MoviesOpenHelper mMovieHelper;
-
     private static final int ALL_MOVIES = 100;
     private static final int MOVIES_WITH_ID = 101;
-
     private static UriMatcher sUriMatched = matchUris();
+    private MoviesOpenHelper mMovieHelper;
 
-    private static UriMatcher matchUris(){
+    private static UriMatcher matchUris() {
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-        uriMatcher.addURI(MoviesContract.PROVIDER_AUTHORITY,MoviesContract.PATH_MOVIES,ALL_MOVIES);
-        uriMatcher.addURI(MoviesContract.PROVIDER_AUTHORITY,MoviesContract.PATH_MOVIES +
-                "/#",MOVIES_WITH_ID);
+        uriMatcher.addURI(MoviesContract.PROVIDER_AUTHORITY, MoviesContract.PATH_MOVIES, ALL_MOVIES);
+        uriMatcher.addURI(MoviesContract.PROVIDER_AUTHORITY, MoviesContract.PATH_MOVIES +
+                "/#", MOVIES_WITH_ID);
 
         return uriMatcher;
     }
@@ -41,36 +39,36 @@ public class MoviesContentProvider extends ContentProvider {
     }
 
     @Override
-    public Cursor query( @Nullable Uri uri,  String[] projection,  String selection,  String[] selectionArgs,
-                         String sortOrder) {
+    public Cursor query(@Nullable Uri uri, String[] projection, String selection, String[] selectionArgs,
+                        String sortOrder) {
         SQLiteDatabase database = mMovieHelper.getReadableDatabase();
 
         Cursor returnedCursor;
 
-        switch (sUriMatched.match(uri)){
-            case ALL_MOVIES:{
-                returnedCursor = database.query(MoviesContract.MoviesEntry.TABLE_NAME,projection,
+        switch (sUriMatched.match(uri)) {
+            case ALL_MOVIES: {
+                returnedCursor = database.query(MoviesContract.MoviesEntry.TABLE_NAME, projection,
                         selection,
-                        selectionArgs,null,null,sortOrder);
+                        selectionArgs, null, null, sortOrder);
                 break;
             }
-            case MOVIES_WITH_ID :{
+            case MOVIES_WITH_ID: {
                 String id = uri.getPathSegments().get(1);
                 String mySelection = MoviesContract.MoviesEntry.ID_COLUMN + "=?";
-                String [] mySelectionArgs = new String[]{id};
+                String[] mySelectionArgs = new String[]{id};
 
                 returnedCursor = database.query(MoviesContract.MoviesEntry.TABLE_NAME,
                         projection,
                         mySelection,
                         mySelectionArgs,
-                        null,null,sortOrder);
+                        null, null, sortOrder);
                 break;
             }
-            default:{
+            default: {
                 throw new UnsupportedOperationException("Not Available URI : " + uri);
             }
         }
-        returnedCursor.setNotificationUri(getContext().getContentResolver(),uri);
+        returnedCursor.setNotificationUri(getContext().getContentResolver(), uri);
         return returnedCursor;
     }
 
@@ -87,27 +85,27 @@ public class MoviesContentProvider extends ContentProvider {
         SQLiteDatabase database = mMovieHelper.getWritableDatabase();
         Uri returnedUri;
 
-        switch (sUriMatched.match(uri)){
-            case ALL_MOVIES :{
+        switch (sUriMatched.match(uri)) {
+            case ALL_MOVIES: {
 
                 long idCreated = database.insert(MoviesContract.MoviesEntry.TABLE_NAME,
-                        null,contentValues);
+                        null, contentValues);
 
-                if (idCreated > 0){
+                if (idCreated > 0) {
 
-                    returnedUri = ContentUris.withAppendedId(uri,idCreated);
+                    returnedUri = ContentUris.withAppendedId(uri, idCreated);
 
-                }else{
+                } else {
                     throw new SQLException("Something bad occurred while inserting");
                 }
                 break;
             }
 
-            default :{
+            default: {
                 throw new UnsupportedOperationException("Not Available URI : " + uri);
             }
         }
-        getContext().getContentResolver().notifyChange(uri,null);
+        getContext().getContentResolver().notifyChange(uri, null);
         return returnedUri;
     }
 
@@ -117,15 +115,15 @@ public class MoviesContentProvider extends ContentProvider {
         SQLiteDatabase database = mMovieHelper.getWritableDatabase();
         int rowsDeleted;
 
-        switch (sUriMatched.match(uri)){
-            case ALL_MOVIES :{
-                rowsDeleted = database.delete(MoviesContract.MoviesEntry.TABLE_NAME,s,strings);
-            break;
+        switch (sUriMatched.match(uri)) {
+            case ALL_MOVIES: {
+                rowsDeleted = database.delete(MoviesContract.MoviesEntry.TABLE_NAME, s, strings);
+                break;
             }
-            case MOVIES_WITH_ID :{
+            case MOVIES_WITH_ID: {
                 String id = uri.getPathSegments().get(1);
                 String mySelection = MoviesContract.MoviesEntry.ID_COLUMN + "=?";
-                String [] mySelectionArgs = new String []{id};
+                String[] mySelectionArgs = new String[]{id};
                 rowsDeleted = database.delete(MoviesContract.MoviesEntry.TABLE_NAME,
                         mySelection,
                         mySelectionArgs);
@@ -136,10 +134,10 @@ public class MoviesContentProvider extends ContentProvider {
             }
         }
 
-       if (rowsDeleted > 0) {
-         getContext().getContentResolver().notifyChange(uri,null);
-       }
-       return rowsDeleted;
+        if (rowsDeleted > 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return rowsDeleted;
     }
 
     @Override

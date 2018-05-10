@@ -2,6 +2,7 @@ package nanodegree.udacity.popularmovies;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,18 +10,30 @@ import java.util.List;
 // POJO class.
 public class Movies implements Parcelable {
 
+    public static final Creator<Movies> CREATOR = new Creator<Movies>() {
+        @Override
+        public Movies createFromParcel(Parcel in) {
+            return new Movies(in);
+        }
+
+        @Override
+        public Movies[] newArray(int size) {
+            return new Movies[size];
+        }
+    };
     private String title;
     private String posterPath;
     private double averageVote;
     private String overView;
     private String releaseDate;
     private int id;
+    private List<String> trailerKey = new ArrayList<>();
+    private List<String> reviewAuthor = new ArrayList<>();
+    private List<String> contentReview = new ArrayList<>();
 
-    private List<String> trailerKey =  new ArrayList<>();
-    private List<String> reviewAuthor =  new ArrayList<>();
-    private List<String> contentReview =  new ArrayList<>();
+    public Movies() {
+    }
 
-    public Movies(){}
 
     protected Movies(Parcel in) {
         title = in.readString();
@@ -31,7 +44,6 @@ public class Movies implements Parcelable {
         id = in.readInt();
 
     }
-
 
     public List<String> getReviewAuthor() {
         return reviewAuthor;
@@ -56,19 +68,6 @@ public class Movies implements Parcelable {
     public void setTrailerKey(List<String> trailerKey) {
         this.trailerKey = trailerKey;
     }
-
-
-    public static final Creator<Movies> CREATOR = new Creator<Movies>() {
-        @Override
-        public Movies createFromParcel(Parcel in) {
-            return new Movies(in);
-        }
-
-        @Override
-        public Movies[] newArray(int size) {
-            return new Movies[size];
-        }
-    };
 
     public String getTitle() {
         return title;

@@ -24,6 +24,7 @@
         android:id="@+id/recyclerViewReviews"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false"
         android:orientation="vertical"
         android:padding="4dp"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager" />

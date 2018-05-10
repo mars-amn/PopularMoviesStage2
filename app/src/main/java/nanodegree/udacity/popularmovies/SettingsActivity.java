@@ -1,8 +1,8 @@
 package nanodegree.udacity.popularmovies;
 
+import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 
 // for the Notification settings.
@@ -19,8 +19,8 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home :{
+        switch (item.getItemId()) {
+            case android.R.id.home: {
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
             }

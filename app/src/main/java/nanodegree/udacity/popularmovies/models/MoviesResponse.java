@@ -12,6 +12,21 @@ import java.util.List;
 
 public class MoviesResponse implements Parcelable {
 
+    public final static Parcelable.Creator<MoviesResponse> CREATOR = new Creator<MoviesResponse>() {
+
+
+        @SuppressWarnings({
+                "unchecked"
+        })
+        public MoviesResponse createFromParcel(Parcel in) {
+            return new MoviesResponse(in);
+        }
+
+        public MoviesResponse[] newArray(int size) {
+            return (new MoviesResponse[size]);
+        }
+
+    };
     @SerializedName("vote_count")
     @Expose
     private Integer voteCount;
@@ -54,21 +69,6 @@ public class MoviesResponse implements Parcelable {
     @SerializedName("release_date")
     @Expose
     private String releaseDate;
-    public final static Parcelable.Creator<MoviesResponse> CREATOR = new Creator<MoviesResponse>() {
-
-
-        @SuppressWarnings({
-                "unchecked"
-        })
-        public MoviesResponse createFromParcel(Parcel in) {
-            return new MoviesResponse(in);
-        }
-
-        public MoviesResponse[] newArray(int size) {
-            return (new MoviesResponse[size]);
-        }
-
-    };
 
     protected MoviesResponse(Parcel in) {
         this.voteCount = ((Integer) in.readValue((Integer.class.getClassLoader())));

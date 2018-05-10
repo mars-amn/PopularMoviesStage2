@@ -5,21 +5,18 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.databinding.DataBindingUtil;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
-
-
 
 import nanodegree.udacity.popularmovies.Utils.NotificationUtils;
 import nanodegree.udacity.popularmovies.database.MoviesContract;
@@ -29,9 +26,9 @@ public class FavoriteActivity extends AppCompatActivity implements
         android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String BUNDLE_ID_KEY = "movie_id";
-  //  private ActivityFavoriteBinding activityFavoriteBinding;
+    //  private ActivityFavoriteBinding activityFavoriteBinding;
     private final Context mContext = this;
-    private int theMovieId ;
+    private int theMovieId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +87,7 @@ public class FavoriteActivity extends AppCompatActivity implements
                         .appendEncodedPath(idToDelete)
                         .build();
 
-                contentResolver.delete(MOVIE_WITH_ID,null,null);
+                contentResolver.delete(MOVIE_WITH_ID, null, null);
 
                 finish();
             }
@@ -145,9 +142,9 @@ public class FavoriteActivity extends AppCompatActivity implements
 
     @Override
     public void onLoadFinished(android.support.v4.content.Loader<Cursor> loader, Cursor cursor) {
-        if( cursor != null && cursor.moveToFirst() ){
+        if (cursor != null && cursor.moveToFirst()) {
 
-            Animation fadingAnim = AnimationUtils.loadAnimation(mContext,R.anim.zoom_in);
+            Animation fadingAnim = AnimationUtils.loadAnimation(mContext, R.anim.zoom_in);
 
             String posterPath = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.POSTER_COLUMN));
             String POSTER_SIZE = "w780";
@@ -161,7 +158,7 @@ public class FavoriteActivity extends AppCompatActivity implements
 //            activityFavoriteBinding.collapsingToolBarFavorite.setTitle(movieTitle);
 
             double voteAverage = cursor.getDouble(cursor.getColumnIndex(MoviesContract.MoviesEntry.AVERAGE_COLUMN));
-            float averageVoteInDouble = (float) voteAverage ;
+            float averageVoteInDouble = (float) voteAverage;
 //            activityFavoriteBinding.includedDetailsLayoutInFavorite.rateChart.setMinValue(0f);
 //            activityFavoriteBinding.includedDetailsLayoutInFavorite.rateChart.setMaxValue(10f);
 //            activityFavoriteBinding.includedDetailsLayoutInFavorite.rateChart.setValue(averageVoteInDouble);
@@ -174,7 +171,7 @@ public class FavoriteActivity extends AppCompatActivity implements
 //            String releaseDate = cursor.getString(cursor.getColumnIndex(MoviesContract.MoviesEntry.RELEASE_DATE_COLUMN));
 //            activityFavoriteBinding.includedDetailsLayoutInFavorite.releaseDateLabelTextView.setText(releaseDate);
 
-        }else {
+        } else {
             errorUponLaunch();
         }
 

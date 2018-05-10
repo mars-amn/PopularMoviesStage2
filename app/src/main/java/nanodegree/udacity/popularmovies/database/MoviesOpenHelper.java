@@ -14,7 +14,7 @@ class MoviesOpenHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 3;
 
     public MoviesOpenHelper(Context context) {
-        super(context, DATABASE_NAME,null,DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override

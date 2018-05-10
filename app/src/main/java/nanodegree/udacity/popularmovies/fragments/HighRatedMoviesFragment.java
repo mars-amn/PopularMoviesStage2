@@ -30,10 +30,9 @@ import retrofit2.Response;
 
 public class HighRatedMoviesFragment extends Fragment implements MoviesAdapter.onMoviePosterClicked {
     private static final String TAG = HighRatedMoviesFragment.class.getSimpleName();
-
+    private static MoviesResults mMoviesResponse;
     @BindView(R.id.movieRecyclerView)
     RecyclerView mMoviesRecyclerView;
-    private static MoviesResults mMoviesResponse;
     Context mContext;
     RecyclerView.LayoutManager mMoviesLayoutManager;
     MoviesAdapter mAdapter;
@@ -89,7 +88,7 @@ public class HighRatedMoviesFragment extends Fragment implements MoviesAdapter.o
     @Override
     public void onMovieClickListener(MoviesResponse movie) {
         Intent selectedMovieIntent = new Intent(mContext, DetailsActivity.class);
-        selectedMovieIntent.putExtra(PopularMoviesFragment.MOVIE_INTENT_KEY,movie);
+        selectedMovieIntent.putExtra(PopularMoviesFragment.MOVIE_INTENT_KEY, movie);
         startActivity(selectedMovieIntent);
     }
 
