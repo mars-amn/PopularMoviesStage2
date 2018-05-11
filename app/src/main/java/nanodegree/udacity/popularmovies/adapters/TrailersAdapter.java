@@ -37,9 +37,9 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.traile
         mLongListener = longListener;
     }
 
-    public void updateTrailers(MoviesTrailers body) {
+    public void updateTrailers(List<TrailersResults> body) {
         if (body != null){
-            mTrailersResultList = body.getResults();
+            mTrailersResultList = body;
             notifyDataSetChanged();
         }
     }

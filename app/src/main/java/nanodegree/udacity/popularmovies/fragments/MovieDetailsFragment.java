@@ -4,15 +4,18 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -53,9 +56,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MovieDetailsFragment extends Fragment implements TrailersAdapter.onTrailerClickListener, TrailersAdapter.onTrailerLongClickListener{
+public class MovieDetailsFragment extends Fragment implements TrailersAdapter.onTrailerClickListener, TrailersAdapter.onTrailerLongClickListener {
     private static final String TAG = MovieDetailsFragment.class.getSimpleName();
     private static final String MOVIE_KEY = "nanodegree.udacity.popularmovies.fragments.movie";
+    private static final String REVIEWS_STATE_KEY = "nanodegree.udacity.popularmovies.fragments.reviews_state";
+    private static final String TRAILER_STATE_KEY = "nanodegree.udacity.popularmovies.fragments.trailer_state";
     @BindView(R.id.addOrRemoveFab)
     FloatingActionButton mAddOrRemoveFab;
     @BindView(R.id.collapsingToolbar)
@@ -79,10 +84,15 @@ public class MovieDetailsFragment extends Fragment implements TrailersAdapter.on
     private Context mContext;
     private MoviesResponse mMovie;
     private List<Poster> mMoviePosters;
+    private List<ReviewsResults> mReviewsResultResponse;
+    private List<TrailersResults> mTrailersResultResponse;
     private Animation mZoomInAnimation;
     private Animation mFadeOutAnimation;
     private ReviewsAdapter mReviewsAdapter;
     private TrailersAdapter mTrailersAdapter;
+    private Parcelable mTrailerRecyclerViewState;
+    private Parcelable mReviewsRecyclerViewState;
+
     public MovieDetailsFragment() {
     }
 
@@ -109,6 +119,8 @@ public class MovieDetailsFragment extends Fragment implements TrailersAdapter.on
         mContext = getContext();
         if (savedInstanceState != null) {
             mMovie = savedInstanceState.getParcelable(MOVIE_KEY);
+            mTrailerRecyclerViewState = savedInstanceState.getParcelable(TRAILER_STATE_KEY);
+            mReviewsRecyclerViewState = savedInstanceState.getParcelable(REVIEWS_STATE_KEY);
         }
         initDetailsBars();
         setupFavoriteFab();
@@ -121,65 +133,81 @@ public class MovieDetailsFragment extends Fragment implements TrailersAdapter.on
     }
 
     private void loadMovieTrailers() {
-        MoviesAPIUtils.getRESTMovies().getMovieTrailers(mMovie.getId(),BuildConfig.TMDB_API_KEY)
-                .enqueue(new Callback<MoviesTrailers>() {
-                    @Override
-                    public void onResponse(Call<MoviesTrailers> call, Response<MoviesTrailers> response) {
-                        if (response.isSuccessful()){
-                            if (response.body() != null){
-                                deployMovieTrailers(response.body());
+        if (mTrailersResultResponse != null) {
+            deployMovieTrailers(mTrailersResultResponse);
+        } else {
+            MoviesAPIUtils.getRESTMovies().getMovieTrailers(mMovie.getId(), BuildConfig.TMDB_API_KEY)
+                    .enqueue(new Callback<MoviesTrailers>() {
+                        @Override
+                        public void onResponse(Call<MoviesTrailers> call, Response<MoviesTrailers> response) {
+                            if (response.isSuccessful()) {
+                                if (response.body() != null) {
+                                    mTrailersResultResponse = response.body().getResults();
+                                    deployMovieTrailers(mTrailersResultResponse);
+                                }
+                            } else {
+                                Log.d(TAG, "trailer response code = " + response.code());
                             }
-                        }else {
-                            Log.d(TAG,"trailer response code = " + response.code());
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<MoviesTrailers> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<MoviesTrailers> call, Throwable t) {
 
-                    }
-                });
+                        }
+                    });
+        }
     }
 
-    private void deployMovieTrailers(MoviesTrailers body) {
+    private void deployMovieTrailers(List<TrailersResults> body) {
         mTrailersAdapter.updateTrailers(body);
-        LayoutAnimationController slideToLeft = AnimationUtils.loadLayoutAnimation(mContext,R.anim.layout_animation_slide_to_left);
+        LayoutAnimationController slideToLeft = AnimationUtils.loadLayoutAnimation(mContext, R.anim.layout_animation_slide_to_left);
         mTrailersRecyclerView.setLayoutAnimation(slideToLeft);
+        if (mTrailerRecyclerViewState != null) {
+            mTrailersRecyclerView.getLayoutManager().onRestoreInstanceState(mTrailerRecyclerViewState);
+        }
     }
 
     private void initRecyclerViews() {
         mReviewsAdapter = new ReviewsAdapter(mContext, new ArrayList<ReviewsResults>(0));
         mReviewsRecyclerView.setAdapter(mReviewsAdapter);
-        mTrailersAdapter = new TrailersAdapter(mContext,new ArrayList<TrailersResults>(0),
-                this,this);
+        mTrailersAdapter = new TrailersAdapter(mContext, new ArrayList<TrailersResults>(0),
+                this, this);
         mTrailersRecyclerView.setAdapter(mTrailersAdapter);
     }
 
     private void loadMovieReviews() {
-        MoviesAPIUtils.getRESTMovies().getMovieReviews(mMovie.getId(), BuildConfig.TMDB_API_KEY)
-                .enqueue(new Callback<MoviesReviews>() {
-                    @Override
-                    public void onResponse(Call<MoviesReviews> call, Response<MoviesReviews> response) {
-                        if (response.isSuccessful()) {
-                            if (response.body() != null) {
-                                deployMovieReviews(response.body());
+        if (mReviewsResultResponse != null) {
+            deployMovieReviews(mReviewsResultResponse);
+        } else {
+            MoviesAPIUtils.getRESTMovies().getMovieReviews(mMovie.getId(), BuildConfig.TMDB_API_KEY)
+                    .enqueue(new Callback<MoviesReviews>() {
+                        @Override
+                        public void onResponse(Call<MoviesReviews> call, Response<MoviesReviews> response) {
+                            if (response.isSuccessful()) {
+                                if (response.body() != null) {
+                                    mReviewsResultResponse = response.body().getResults();
+                                    deployMovieReviews(mReviewsResultResponse);
+                                }
+                            } else {
+                                Log.d(TAG, "response code = " + response.code());
                             }
-                        } else {
-                            Log.d(TAG, "response code = " + response.code());
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<MoviesReviews> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<MoviesReviews> call, Throwable t) {
 
-                    }
-                });
+                        }
+                    });
+        }
     }
 
-    private void deployMovieReviews(MoviesReviews mMovieReviewResponse) {
-        mReviewsAdapter.updateReviews(mMovieReviewResponse.getResults());
+    private void deployMovieReviews(List<ReviewsResults> mMovieReviewResponse) {
+        mReviewsAdapter.updateReviews(mMovieReviewResponse);
         LayoutAnimationController slideUp = AnimationUtils.loadLayoutAnimation(mContext, R.anim.layout_animation_slide_up);
         mReviewsRecyclerView.setLayoutAnimation(slideUp);
+        if (mReviewsRecyclerViewState != null) {
+            mReviewsRecyclerView.getLayoutManager().onRestoreInstanceState(mReviewsRecyclerViewState);
+        }
     }
 
     private void setupFavoriteFab() {
@@ -213,6 +241,8 @@ public class MovieDetailsFragment extends Fragment implements TrailersAdapter.on
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(MOVIE_KEY, mMovie);
+        outState.putParcelable(TRAILER_STATE_KEY, mTrailersRecyclerView.getLayoutManager().onSaveInstanceState());
+        outState.putParcelable(REVIEWS_STATE_KEY, mReviewsRecyclerView.getLayoutManager().onSaveInstanceState());
     }
 
     private void insetIntoDatabase() {
@@ -340,11 +370,24 @@ public class MovieDetailsFragment extends Fragment implements TrailersAdapter.on
 
     @Override
     public void onTrailerLongClick(String key) {
+        String text = "Check this trailer of " + mMovie.getTitle() + " on YouTube! \n " +
+                "https://www.youtube.com/watch?v=" + key;
 
+        Intent shareTrailerIntent = ShareCompat.IntentBuilder.from(getActivity())
+                .setType("text/plain")
+                .setChooserTitle(R.string.share_trailer_label)
+                .setText(text)
+                .getIntent();
+
+        if (shareTrailerIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivity(shareTrailerIntent);
+        }
     }
 
     @Override
     public void onTrailerClick(String key) {
-
+        String trailerUrl = "https://www.youtube.com/watch?v=" + key;
+        Intent trailerIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(trailerUrl));
+        startActivity(trailerIntent);
     }
 }
