@@ -1,5 +1,6 @@
 package nanodegree.udacity.popularmovies.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -23,9 +24,11 @@ import com.txusballesteros.widgets.FitChart;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import nanodegree.udacity.popularmovies.BuildConfig;
 import nanodegree.udacity.popularmovies.GlideApp;
 import nanodegree.udacity.popularmovies.R;
+import nanodegree.udacity.popularmovies.FavoriteMovieDialog;
 import nanodegree.udacity.popularmovies.database.MoviesContract;
 
 /**
@@ -33,7 +36,7 @@ import nanodegree.udacity.popularmovies.database.MoviesContract;
  */
 public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private int mMovieId;
-
+    private String mPosterPath;
     public int getmMovieId() {
         return mMovieId;
     }
@@ -72,6 +75,12 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
         return favoriteFragmentView;
     }
 
+    @OnClick(R.id.favoriteFab)
+    public void showDialog() {
+        FavoriteMovieDialog dialog = new FavoriteMovieDialog();
+        dialog.showRemoveFavoriteViewDialog(getActivity(), getmMovieId(),mPosterPath);
+    }
+
     private void queryForMovie() {
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(0, null, this);
@@ -85,6 +94,7 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
+    @SuppressLint("StaticFieldLeak")
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
@@ -146,9 +156,9 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
         mFavoriteReleaseDateTextView.setText(releaseDate);
 
         String POSTER_SIZE = "t/p/w780";
-        String posterPath = BuildConfig.POSTER_BASE_URL + POSTER_SIZE + poster;
+        mPosterPath = BuildConfig.POSTER_BASE_URL + POSTER_SIZE + poster;
         GlideApp.with(mContext)
-                .load(posterPath)
+                .load(mPosterPath)
                 .placeholder(R.mipmap.ic_launcher)
                 .into(mFavoritePosterImageView);
         mFavoriteRateChar.setMaxValue(10f);
