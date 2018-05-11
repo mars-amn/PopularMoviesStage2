@@ -22,7 +22,7 @@ public final class MoviesContract {
 
         public static final String TABLE_NAME = "favoriteMovies";
 
-        // database columns
+
         public static final String ID_COLUMN = "_movieId";
         public static final String TITLE_COLUMN = "title";
         public static final String POSTER_COLUMN = "poster";
@@ -30,5 +30,6 @@ public final class MoviesContract {
         public static final String RELEASE_DATE_COLUMN = "releaseDate";
         public static final String AVERAGE_COLUMN = "averageVote";
 
+        public static final int DEFAULT_ID_VALUE = -1;
     }
 }

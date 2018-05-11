@@ -1,6 +1,7 @@
 package nanodegree.udacity.popularmovies.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,12 +24,14 @@ import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import nanodegree.udacity.popularmovies.FavoriteActivity;
 import nanodegree.udacity.popularmovies.R;
 import nanodegree.udacity.popularmovies.adapters.FavoriteAdapter;
 import nanodegree.udacity.popularmovies.database.MoviesContract;
 
 
 public class FavoriteMoviesFragment extends Fragment implements FavoriteAdapter.onFavoriteMovieClick, FavoriteAdapter.onFavoriteMovieLongClick {
+    public static final String FAVORITE_MOVIE_INTENT = "nanodegree.udacity.popularmovies.fragments.favorite_movie_key";
     @BindView(R.id.movieRecyclerView)
     RecyclerView mFavoriteMoviesRecyclerView;
     @BindView(R.id.emptyState)
@@ -88,8 +91,10 @@ public class FavoriteMoviesFragment extends Fragment implements FavoriteAdapter.
     }
 
     @Override
-    public void onFavoriteMovieClickListener(int Id) {
-
+    public void onFavoriteMovieClickListener(int id) {
+        Intent favoriteMovieIntent = new Intent(mContext, FavoriteActivity.class);
+        favoriteMovieIntent.putExtra(FAVORITE_MOVIE_INTENT, id);
+        startActivity(favoriteMovieIntent);
     }
 
     @Override
