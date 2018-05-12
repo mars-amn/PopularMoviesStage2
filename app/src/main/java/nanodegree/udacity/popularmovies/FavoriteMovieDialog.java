@@ -48,11 +48,11 @@ public class FavoriteMovieDialog {
 
     @OnClick(R.id.dialogPositiveButton)
     public void onPositiveButtonClick() {
-        Uri MOVIE_WITH_ID = MoviesContract.MoviesEntry.CONTENT_URI.buildUpon()
+        Uri movieId = MoviesContract.MoviesEntry.CONTENT_URI.buildUpon()
                 .appendEncodedPath(Integer.toString(mMovieId))
                 .build();
 
-        mActivity.getContentResolver().delete(MOVIE_WITH_ID, null, null);
+        mActivity.getContentResolver().delete(movieId, null, null);
         mActivity.finish();
     }
 

@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 
+import com.ethanhua.skeleton.Skeleton;
+import com.ethanhua.skeleton.SkeletonScreen;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -38,7 +41,7 @@ public class HighRatedMoviesFragment extends Fragment implements MoviesAdapter.o
     Context mContext;
     RecyclerView.LayoutManager mMoviesLayoutManager;
     MoviesAdapter mAdapter;
-
+    private SkeletonScreen mSkeletonScreen;
     public HighRatedMoviesFragment() {
     }
 
@@ -82,6 +85,7 @@ public class HighRatedMoviesFragment extends Fragment implements MoviesAdapter.o
 
     private void deployMovies(MoviesResults mMoviesResponse) {
         mAdapter.updatePosters(mMoviesResponse.getMovieDetails());
+        mSkeletonScreen.hide();
         LayoutAnimationController slideUp = AnimationUtils.loadLayoutAnimation(mContext, R.anim.layout_animation_slide_up);
         mMoviesRecyclerView.setLayoutAnimation(slideUp);
     }
@@ -91,6 +95,11 @@ public class HighRatedMoviesFragment extends Fragment implements MoviesAdapter.o
         mMoviesRecyclerView.setLayoutManager(mMoviesLayoutManager);
         mAdapter = new MoviesAdapter(mContext, new ArrayList<MoviesResponse>(0), this);
         mMoviesRecyclerView.setAdapter(mAdapter);
+        mSkeletonScreen = Skeleton.bind(mMoviesRecyclerView)
+                .adapter(mAdapter)
+                .load(R.layout.layout_default_item_skeleton)
+                .duration(1500)
+                .show();
     }
 
     @Override
