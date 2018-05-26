@@ -52,5 +52,6 @@
     <!-- other strings 0/ -->
     <string name="share_trailer_label">Share Trailer</string>
     <string name="error_message">Sorry, something bad occurred</string>
+    <string name="poster_transition_name">posterTransition</string>
 
 </resources>

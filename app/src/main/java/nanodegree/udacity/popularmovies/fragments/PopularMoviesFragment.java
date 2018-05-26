@@ -1,18 +1,23 @@
 package nanodegree.udacity.popularmovies.fragments;
 
+import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.ethanhua.skeleton.Skeleton;
@@ -46,6 +51,7 @@ public class PopularMoviesFragment extends Fragment implements MoviesAdapter.onM
     MoviesAdapter mMoviesAdapter;
     Context mContext;
     private SkeletonScreen mSkeletonScreen;
+
     public PopularMoviesFragment() {
     }
 
@@ -107,10 +113,29 @@ public class PopularMoviesFragment extends Fragment implements MoviesAdapter.onM
     }
 
     @Override
-    public void onMovieClickListener(MoviesResponse movie) {
+    public void onMovieClickListener(View view, MoviesResponse movie) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            makePosterTransition(view, movie);
+        } else {
+            startMovieDetails(movie);
+        }
+
+    }
+
+    private void startMovieDetails(MoviesResponse movie) {
         Intent selectedMovieIntent = new Intent(mContext, DetailsActivity.class);
         selectedMovieIntent.putExtra(MOVIE_INTENT_KEY, movie);
         startActivity(selectedMovieIntent);
+    }
+
+    @SuppressLint("NewApi")
+    private void makePosterTransition(View view, MoviesResponse movie) {
+        ImageView posterImage = (ImageView) view;
+        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity(),
+                new Pair<View, String>(posterImage, posterImage.getTransitionName())).toBundle();
+        Intent selectedMovieIntent = new Intent(mContext, DetailsActivity.class);
+        selectedMovieIntent.putExtra(MOVIE_INTENT_KEY, movie);
+        startActivity(selectedMovieIntent, bundle);
     }
 
 }

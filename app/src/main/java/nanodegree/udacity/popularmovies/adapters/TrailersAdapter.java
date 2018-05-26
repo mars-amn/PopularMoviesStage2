@@ -14,7 +14,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import nanodegree.udacity.popularmovies.GlideApp;
 import nanodegree.udacity.popularmovies.R;
-import nanodegree.udacity.popularmovies.models.MoviesTrailers;
 import nanodegree.udacity.popularmovies.models.TrailersResults;
 
 /**
@@ -38,18 +37,10 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.traile
     }
 
     public void updateTrailers(List<TrailersResults> body) {
-        if (body != null){
+        if (body != null) {
             mTrailersResultList = body;
             notifyDataSetChanged();
         }
-    }
-
-    public interface onTrailerLongClickListener {
-        void onTrailerLongClick(String key);
-    }
-
-    public interface onTrailerClickListener {
-        void onTrailerClick(String key);
     }
 
     @Override
@@ -85,6 +76,14 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.traile
     @Override
     public int getItemCount() {
         return mTrailersResultList.size();
+    }
+
+    public interface onTrailerLongClickListener {
+        void onTrailerLongClick(String key);
+    }
+
+    public interface onTrailerClickListener {
+        void onTrailerClick(String key);
     }
 
     public class trailerViewHolder extends RecyclerView.ViewHolder {

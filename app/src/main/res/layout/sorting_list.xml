@@ -21,7 +21,8 @@
             android:layout_height="230dp"
             android:contentDescription="@string/movie_poster_content_description"
             android:foreground="?android:attr/selectableItemBackground"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:transitionName="@string/poster_transition_name" />
 
     </android.support.v7.widget.CardView>
 

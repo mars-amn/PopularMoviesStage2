@@ -1,7 +1,10 @@
 package nanodegree.udacity.popularmovies.fragments;
 
+import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 
 import com.ethanhua.skeleton.Skeleton;
 import com.ethanhua.skeleton.SkeletonScreen;
@@ -42,6 +46,7 @@ public class HighRatedMoviesFragment extends Fragment implements MoviesAdapter.o
     RecyclerView.LayoutManager mMoviesLayoutManager;
     MoviesAdapter mAdapter;
     private SkeletonScreen mSkeletonScreen;
+
     public HighRatedMoviesFragment() {
     }
 
@@ -54,7 +59,7 @@ public class HighRatedMoviesFragment extends Fragment implements MoviesAdapter.o
         setupViews();
 
         if (mMoviesResponse != null) {
-           deployMovies(mMoviesResponse);
+            deployMovies(mMoviesResponse);
         } else {
             loadHighRatedMovies();
         }
@@ -103,10 +108,29 @@ public class HighRatedMoviesFragment extends Fragment implements MoviesAdapter.o
     }
 
     @Override
-    public void onMovieClickListener(MoviesResponse movie) {
+    public void onMovieClickListener(View view, MoviesResponse movie) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            makePosterTransition(view, movie);
+        } else {
+            startMovieDetails(movie);
+        }
+
+    }
+
+    private void startMovieDetails(MoviesResponse movie) {
         Intent selectedMovieIntent = new Intent(mContext, DetailsActivity.class);
         selectedMovieIntent.putExtra(PopularMoviesFragment.MOVIE_INTENT_KEY, movie);
         startActivity(selectedMovieIntent);
     }
 
+    @SuppressLint("NewApi")
+    private void makePosterTransition(View view, MoviesResponse movie) {
+        ImageView posterImage = (ImageView) view;
+        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity(),
+                posterImage,
+                posterImage.getTransitionName()).toBundle();
+        Intent selectedMovieIntent = new Intent(mContext, DetailsActivity.class);
+        selectedMovieIntent.putExtra(PopularMoviesFragment.MOVIE_INTENT_KEY, movie);
+        startActivity(selectedMovieIntent, bundle);
+    }
 }

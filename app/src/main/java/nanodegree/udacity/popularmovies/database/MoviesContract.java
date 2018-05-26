@@ -11,6 +11,7 @@ public final class MoviesContract {
     public static final String PROVIDER_AUTHORITY = "nanodegree.udacity.popularmovies.database";
     public static final String PATH_MOVIES = "favoriteMovies";
     private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + PROVIDER_AUTHORITY);
+
     private MoviesContract() {
     }
 

@@ -32,6 +32,7 @@
                 android:contentDescription="@string/movie_poster_content_description"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
+                android:transitionName="@string/poster_transition_name"
                 app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar
@@ -63,6 +64,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
+            android:id="@+id/detailsParent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"

@@ -1,20 +1,10 @@
 package nanodegree.udacity.popularmovies;
 
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import nanodegree.udacity.popularmovies.database.MoviesContract;
@@ -31,7 +21,7 @@ public class FavoriteActivity extends AppCompatActivity {
 
         Intent favoriteMovieIntent = getIntent();
         if (favoriteMovieIntent.hasExtra(FavoriteMoviesFragment.FAVORITE_MOVIE_INTENT)) {
-           int movieId = favoriteMovieIntent.getIntExtra(FavoriteMoviesFragment.FAVORITE_MOVIE_INTENT, MoviesContract.MoviesEntry.DEFAULT_ID_VALUE);
+            int movieId = favoriteMovieIntent.getIntExtra(FavoriteMoviesFragment.FAVORITE_MOVIE_INTENT, MoviesContract.MoviesEntry.DEFAULT_ID_VALUE);
             if (savedInstanceState == null) {
                 FavoriteFragment favoriteFragment = new FavoriteFragment();
                 favoriteFragment.setmMovieId(movieId);
@@ -56,7 +46,6 @@ public class FavoriteActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 
     private void errorUponLaunch() {

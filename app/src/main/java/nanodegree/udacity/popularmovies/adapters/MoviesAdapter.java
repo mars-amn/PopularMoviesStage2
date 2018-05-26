@@ -36,7 +36,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieListV
         holder.posterImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPosterClickListener.onMovieClickListener(mMoviesList.get(holder.getAdapterPosition()));
+                mPosterClickListener.onMovieClickListener(holder.posterImage, mMoviesList.get(holder.getAdapterPosition()));
             }
         });
         return holder;
@@ -44,7 +44,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieListV
 
     @Override
     public void onBindViewHolder(MovieListVHolder holder, int position) {
-        // available sizes for the posters are "w320" , "w500" , "w780"
         String POSTER_SIZE = "t/p/w780";
         String posterPath = BuildConfig.POSTER_BASE_URL + POSTER_SIZE +
                 mMoviesList.get(position).getPosterPath();
@@ -65,7 +64,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieListV
     }
 
     public interface onMoviePosterClicked {
-        void onMovieClickListener(MoviesResponse movie);
+        void onMovieClickListener(View view, MoviesResponse movie);
     }
 
     public class MovieListVHolder extends RecyclerView.ViewHolder {
