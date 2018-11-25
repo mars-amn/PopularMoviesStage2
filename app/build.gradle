@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
+    compileSdkVersion 28
     defaultConfig {
         applicationId 'nanodegree.udacity.popularmovies'
         minSdkVersion rootProject.minSdkVersion
@@ -24,10 +24,15 @@ android {
         it.buildConfigField 'String', 'BASE_URL', TMDP_BASE_URL
     }
     dataBinding.enabled = true
+    buildToolsVersion '28.0.3'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     // support libraries
     implementation 'com.android.support:appcompat-v7:' + rootProject.librariesVersions.supportLibraryVersion
     implementation 'com.android.support.constraint:constraint-layout:' + rootProject.librariesVersions.constraintLayoutVersion
@@ -38,7 +43,6 @@ dependencies {
     implementation 'com.android.support:preference-v7:' + rootProject.librariesVersions.supportLibraryVersion
     implementation 'com.android.support:appcompat-v7:' + rootProject.librariesVersions.supportLibraryVersion
     implementation 'com.android.support.constraint:constraint-layout:' + rootProject.librariesVersions.constraintLayoutVersion
-
     // Espresso test library and JUnit
     androidTestImplementation 'com.android.support.test:runner:' + rootProject.librariesVersions.runnerVersion
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:' + rootProject.librariesVersions.espressoTestLibraryVersion
@@ -46,34 +50,24 @@ dependencies {
     implementation 'com.android.support.test.espresso:espresso-idling-resource:' + rootProject.librariesVersions.espressoTestLibraryVersion
     androidTestImplementation 'com.android.support.test.espresso:espresso-intents:' + rootProject.librariesVersions.espressoTestLibraryVersion
     testImplementation 'junit:junit:' + rootProject.librariesVersions.jUnitVersion
-
     //retrofit library
     implementation 'com.squareup.retrofit2:retrofit:' + rootProject.librariesVersions.retrofitLibraryVersion
     implementation 'com.squareup.retrofit2:converter-gson:' + rootProject.librariesVersions.retrofitLibraryVersion
 
-    // Gson 'Parsing JSON library'
-    implementation 'com.google.code.gson:gson:' + rootProject.librariesVersions.gsonLibraryVersion
-
     // butterKnife
     implementation 'com.jakewharton:butterknife:' + rootProject.librariesVersions.butterKnifeLibraryVersion
     annotationProcessor 'com.jakewharton:butterknife-compiler:' + rootProject.librariesVersions.butterKnifeLibraryVersion
-
     // glide library 'Photo processing library'
     implementation 'com.github.bumptech.glide:glide:' + rootProject.librariesVersions.glideLibraryVersion
     annotationProcessor 'com.github.bumptech.glide:compiler:' + rootProject.librariesVersions.glideLibraryVersion
-
     //fitChart library
     implementation 'com.txusballesteros:FitChart:' + rootProject.librariesVersions.fitChartLibrary
-
     implementation 'com.github.thomper:sweet-alert-dialog:v' + rootProject.librariesVersions.sweetAlertDialogLibrary
-
     implementation 'com.ethanhua:skeleton:' + rootProject.librariesVersions.skeletonVersion
     implementation 'io.supercharge:shimmerlayout:' + rootProject.librariesVersions.shimmerLayoutVersion
-
-    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
-
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
-    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.picasso:picasso:2.71828'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 repositories {

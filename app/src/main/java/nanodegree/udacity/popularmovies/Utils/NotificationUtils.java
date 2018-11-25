@@ -55,12 +55,12 @@ public class NotificationUtils {
                     .addAction(dismissAction(context))
                     .addAction(openMovieAction(context, latestMovie))
                     .setContentIntent(contentPendingIntent(context, latestMovie))
-                    .setLargeIcon(Picasso.with(context).load(BuildConfig.POSTER_BASE_URL + POSTER_SIZE +
+                    .setLargeIcon(Picasso.get().load(BuildConfig.POSTER_BASE_URL + POSTER_SIZE +
                             latestMovie.getPosterPath()).get())
                     .setStyle(new NotificationCompat.BigPictureStyle()
-                            .bigLargeIcon(Picasso.with(context).load(BuildConfig.POSTER_BASE_URL + POSTER_SIZE +
+                            .bigLargeIcon(Picasso.get().load(BuildConfig.POSTER_BASE_URL + POSTER_SIZE +
                                     latestMovie.getPosterPath()).get())
-                            .bigPicture(Picasso.with(context).load(BuildConfig.POSTER_BASE_URL + POSTER_SIZE +
+                            .bigPicture(Picasso.get().load(BuildConfig.POSTER_BASE_URL + POSTER_SIZE +
                                     latestMovie.getPosterPath()).get())
                             .setSummaryText(latestMovie.getTitle())
                             .setBigContentTitle(latestMovie.getOverView()))
