@@ -52,7 +52,7 @@ ext {
 
             skeletonVersion           : '1.1.0',
 
-            shimmerLayoutVersion     : '2.0.0'
+            shimmerLayoutVersion      : '2.0.0'
 
     ]
 

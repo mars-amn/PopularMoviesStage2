@@ -26,25 +26,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nanodegree.udacity.popularmovies.BuildConfig;
+import nanodegree.udacity.popularmovies.FavoriteMovieDialog;
 import nanodegree.udacity.popularmovies.GlideApp;
 import nanodegree.udacity.popularmovies.R;
-import nanodegree.udacity.popularmovies.FavoriteMovieDialog;
 import nanodegree.udacity.popularmovies.database.MoviesContract;
 
 /**
  * Created by AbdullahAtta on 5/11/2018.
  */
 public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
-    private int mMovieId;
-    private String mPosterPath;
-    public int getmMovieId() {
-        return mMovieId;
-    }
-
-    public void setmMovieId(int mMovieId) {
-        this.mMovieId = mMovieId;
-    }
-
     @BindView(R.id.rateChart)
     FitChart mFavoriteRateChar;
     @BindView(R.id.posterFavoriteImageView)
@@ -59,9 +49,19 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
     CollapsingToolbarLayout mFavoriteCollapsingBarLayout;
     @BindView(R.id.toolbarFavorite)
     Toolbar mFavoriteToolbar;
+    private int mMovieId;
+    private String mPosterPath;
     private Context mContext;
 
     public FavoriteFragment() {
+    }
+
+    public int getmMovieId() {
+        return mMovieId;
+    }
+
+    public void setmMovieId(int mMovieId) {
+        this.mMovieId = mMovieId;
     }
 
     @Nullable
@@ -78,7 +78,7 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
     @OnClick(R.id.favoriteFab)
     public void showDialog() {
         FavoriteMovieDialog dialog = new FavoriteMovieDialog();
-        dialog.showRemoveFavoriteViewDialog(getActivity(), getmMovieId(),mPosterPath);
+        dialog.showRemoveFavoriteViewDialog(getActivity(), getmMovieId(), mPosterPath);
     }
 
     private void queryForMovie() {
