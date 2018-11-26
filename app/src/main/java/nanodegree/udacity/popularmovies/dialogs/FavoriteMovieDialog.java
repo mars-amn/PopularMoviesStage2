@@ -1,4 +1,4 @@
-package nanodegree.udacity.popularmovies;
+package nanodegree.udacity.popularmovies.dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -12,7 +12,9 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import nanodegree.udacity.popularmovies.R;
 import nanodegree.udacity.popularmovies.database.MoviesContract;
+import nanodegree.udacity.popularmovies.utils.GlideApp;
 
 /**
  * Created by AbdullahAtta on 5/12/2018.
@@ -33,7 +35,7 @@ public class FavoriteMovieDialog {
     public void showRemoveFavoriteViewDialog(final Activity activity, int id, String posterUrl) {
         mActivity = activity;
         dialog = new Dialog(mActivity);
-        dialog.setContentView(R.layout.delete_dialog);
+        dialog.setContentView(R.layout.dialog_delete_favorite_movie);
         ButterKnife.bind(this, dialog);
         mMovieId = id;
         mDialogTextView.setText(R.string.delete_movie_alert_dialog_message);

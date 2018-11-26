@@ -28,12 +28,12 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import nanodegree.udacity.popularmovies.BuildConfig;
-import nanodegree.udacity.popularmovies.DetailsActivity;
 import nanodegree.udacity.popularmovies.R;
+import nanodegree.udacity.popularmovies.activities.DetailsActivity;
 import nanodegree.udacity.popularmovies.adapters.MoviesAdapter;
 import nanodegree.udacity.popularmovies.models.MoviesResponse;
 import nanodegree.udacity.popularmovies.models.MoviesResults;
-import nanodegree.udacity.popularmovies.rest.MoviesAPIUtils;
+import nanodegree.udacity.popularmovies.rest.APIUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,7 +59,7 @@ public class PopularMoviesFragment extends Fragment implements MoviesAdapter.onM
     @Nullable
     @Override
     public View onCreateView(@Nullable LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View mainMoviesView = inflater.inflate(R.layout.main_movies_fragment, container, false);
+        View mainMoviesView = inflater.inflate(R.layout.fragment_movies_sort, container, false);
         ButterKnife.bind(this, mainMoviesView);
         mContext = getContext();
         setUpViews();
@@ -84,7 +84,7 @@ public class PopularMoviesFragment extends Fragment implements MoviesAdapter.onM
     }
 
     private void loadMovies() {
-        MoviesAPIUtils.getRESTMovies().getPopularMovies(BuildConfig.TMDB_API_KEY)
+        APIUtils.getMoviesAPI().getPopularMovies(BuildConfig.TMDB_API_KEY)
                 .enqueue(new Callback<MoviesResults>() {
                     @Override
                     public void onResponse(Call<MoviesResults> call, Response<MoviesResults> response) {

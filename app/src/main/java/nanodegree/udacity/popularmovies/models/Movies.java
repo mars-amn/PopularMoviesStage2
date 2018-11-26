@@ -1,4 +1,4 @@
-package nanodegree.udacity.popularmovies;
+package nanodegree.udacity.popularmovies.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

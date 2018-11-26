@@ -10,9 +10,9 @@ import com.firebase.jobdispatcher.JobService;
 import java.io.IOException;
 
 import nanodegree.udacity.popularmovies.BuildConfig;
-import nanodegree.udacity.popularmovies.Movies;
-import nanodegree.udacity.popularmovies.Utils.JsonUtils;
-import nanodegree.udacity.popularmovies.Utils.NotificationUtils;
+import nanodegree.udacity.popularmovies.models.Movies;
+import nanodegree.udacity.popularmovies.utils.JsonUtils;
+import nanodegree.udacity.popularmovies.utils.NotificationUtils;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

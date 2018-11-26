@@ -24,8 +24,8 @@ import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import nanodegree.udacity.popularmovies.FavoriteActivity;
 import nanodegree.udacity.popularmovies.R;
+import nanodegree.udacity.popularmovies.activities.FavoriteActivity;
 import nanodegree.udacity.popularmovies.adapters.FavoriteAdapter;
 import nanodegree.udacity.popularmovies.database.MoviesContract;
 
@@ -72,7 +72,7 @@ public class FavoriteMoviesFragment extends Fragment implements FavoriteAdapter.
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View favoriteMoviesView = inflater.inflate(R.layout.main_movies_fragment, container, false);
+        View favoriteMoviesView = inflater.inflate(R.layout.fragment_movies_sort, container, false);
         ButterKnife.bind(this, favoriteMoviesView);
         mContext = getContext();
 

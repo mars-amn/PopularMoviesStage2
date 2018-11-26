@@ -1,7 +1,9 @@
-package nanodegree.udacity.popularmovies;
+package nanodegree.udacity.popularmovies.fragments;
 
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceFragmentCompat;
+
+import nanodegree.udacity.popularmovies.R;
 
 
 public class SettingsFragment extends PreferenceFragmentCompat {

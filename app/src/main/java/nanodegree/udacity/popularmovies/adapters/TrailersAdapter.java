@@ -12,9 +12,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import nanodegree.udacity.popularmovies.GlideApp;
 import nanodegree.udacity.popularmovies.R;
 import nanodegree.udacity.popularmovies.models.TrailersResults;
+import nanodegree.udacity.popularmovies.utils.GlideApp;
 
 /**
  * Created by AbdullahAtta on 3/8/2018.
@@ -45,7 +45,7 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.traile
 
     @Override
     public trailerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View trailersView = LayoutInflater.from(mContext).inflate(R.layout.trailers_list, parent, false);
+        View trailersView = LayoutInflater.from(mContext).inflate(R.layout.list_item_trailers, parent, false);
         final trailerViewHolder holder = new trailerViewHolder(trailersView);
         holder.mTrailerThumbnailImageView.setOnClickListener(new View.OnClickListener() {
             @Override

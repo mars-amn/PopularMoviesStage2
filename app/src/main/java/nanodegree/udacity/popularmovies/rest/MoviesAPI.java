@@ -10,7 +10,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
-public interface RESTMovies {
+public interface MoviesAPI {
     @GET("3/movie/popular")
     Call<MoviesResults> getPopularMovies(@Query("api_key") String apiKey);
 

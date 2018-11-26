@@ -1,4 +1,4 @@
-package nanodegree.udacity.popularmovies.Utils;
+package nanodegree.udacity.popularmovies.utils;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -15,9 +15,9 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 
 import nanodegree.udacity.popularmovies.BuildConfig;
-import nanodegree.udacity.popularmovies.DetailsActivity;
-import nanodegree.udacity.popularmovies.Movies;
 import nanodegree.udacity.popularmovies.R;
+import nanodegree.udacity.popularmovies.activities.DetailsActivity;
+import nanodegree.udacity.popularmovies.models.Movies;
 import nanodegree.udacity.popularmovies.services.LatestMoviesTasks;
 
 

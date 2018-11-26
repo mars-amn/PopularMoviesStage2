@@ -1,4 +1,4 @@
-package nanodegree.udacity.popularmovies;
+package nanodegree.udacity.popularmovies.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import nanodegree.udacity.popularmovies.R;
 import nanodegree.udacity.popularmovies.database.MoviesContract;
 import nanodegree.udacity.popularmovies.fragments.FavoriteFragment;
 import nanodegree.udacity.popularmovies.fragments.FavoriteMoviesFragment;
