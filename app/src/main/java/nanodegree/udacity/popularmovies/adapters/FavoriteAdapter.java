@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import nanodegree.udacity.popularmovies.BuildConfig;
-import nanodegree.udacity.popularmovies.GlideApp;
 import nanodegree.udacity.popularmovies.R;
 import nanodegree.udacity.popularmovies.database.MoviesContract;
+import nanodegree.udacity.popularmovies.utils.GlideApp;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder> {
 
@@ -34,7 +34,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
     @Override
     public FavoriteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View sortingListView = LayoutInflater.from(mContext).inflate(R.layout.sorting_list, parent, false);
+        View sortingListView = LayoutInflater.from(mContext).inflate(R.layout.list_item_movies_sorting, parent, false);
 
         final FavoriteViewHolder holder = new FavoriteViewHolder(sortingListView);
         holder.mPosterImage.setOnClickListener(new View.OnClickListener() {

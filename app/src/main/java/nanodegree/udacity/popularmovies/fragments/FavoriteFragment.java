@@ -26,10 +26,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nanodegree.udacity.popularmovies.BuildConfig;
-import nanodegree.udacity.popularmovies.FavoriteMovieDialog;
-import nanodegree.udacity.popularmovies.GlideApp;
 import nanodegree.udacity.popularmovies.R;
 import nanodegree.udacity.popularmovies.database.MoviesContract;
+import nanodegree.udacity.popularmovies.dialogs.FavoriteMovieDialog;
+import nanodegree.udacity.popularmovies.utils.GlideApp;
 
 /**
  * Created by AbdullahAtta on 5/11/2018.
@@ -67,7 +67,7 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View favoriteFragmentView = inflater.inflate(R.layout.favorite_fragment, container, false);
+        View favoriteFragmentView = inflater.inflate(R.layout.fragment_favorite_movie_details, container, false);
         ButterKnife.bind(this, favoriteFragmentView);
         mContext = getContext();
         initActivityBars();

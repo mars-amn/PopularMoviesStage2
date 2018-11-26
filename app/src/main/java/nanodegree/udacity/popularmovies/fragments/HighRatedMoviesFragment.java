@@ -26,12 +26,12 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import nanodegree.udacity.popularmovies.BuildConfig;
-import nanodegree.udacity.popularmovies.DetailsActivity;
 import nanodegree.udacity.popularmovies.R;
+import nanodegree.udacity.popularmovies.activities.DetailsActivity;
 import nanodegree.udacity.popularmovies.adapters.MoviesAdapter;
 import nanodegree.udacity.popularmovies.models.MoviesResponse;
 import nanodegree.udacity.popularmovies.models.MoviesResults;
-import nanodegree.udacity.popularmovies.rest.MoviesAPIUtils;
+import nanodegree.udacity.popularmovies.rest.APIUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,7 +53,7 @@ public class HighRatedMoviesFragment extends Fragment implements MoviesAdapter.o
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View highRatedMoviesView = inflater.inflate(R.layout.main_movies_fragment, container, false);
+        View highRatedMoviesView = inflater.inflate(R.layout.fragment_movies_sort, container, false);
         ButterKnife.bind(this, highRatedMoviesView);
         mContext = getContext();
         setupViews();
@@ -67,7 +67,7 @@ public class HighRatedMoviesFragment extends Fragment implements MoviesAdapter.o
     }
 
     private void loadHighRatedMovies() {
-        MoviesAPIUtils.getRESTMovies().getHighRatedMovies(BuildConfig.TMDB_API_KEY)
+        APIUtils.getMoviesAPI().getHighRatedMovies(BuildConfig.TMDB_API_KEY)
                 .enqueue(new Callback<MoviesResults>() {
                     @Override
                     public void onResponse(Call<MoviesResults> call, Response<MoviesResults> response) {

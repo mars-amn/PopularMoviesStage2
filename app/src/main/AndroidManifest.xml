@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme">
@@ -26,21 +26,21 @@
         </activity>
 
         <activity
-            android:name=".DetailsActivity"
-            android:parentActivityName=".MainActivity">
+            android:name=".activities.DetailsActivity"
+            android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".activities.MainActivity" />
         </activity>
 
         <activity
-            android:name=".SettingsActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".activities.SettingsActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:theme="@style/SettingsTheme" />
 
         <activity
-            android:name=".FavoriteActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name=".activities.FavoriteActivity"
+            android:parentActivityName=".activities.MainActivity" />
 
         <provider
             android:name=".database.MoviesContentProvider"

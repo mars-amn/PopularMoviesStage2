@@ -71,9 +71,9 @@
             android:orientation="vertical"
             android:paddingTop="10dp">
 
-            <include layout="@layout/details_layout" />
+            <include layout="@layout/movie_details_layout" />
 
-            <include layout="@layout/details_containers" />
+            <include layout="@layout/movie_reviews_trailers_layout" />
 
         </LinearLayout>
 

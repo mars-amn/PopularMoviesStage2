@@ -1,9 +1,9 @@
-package nanodegree.udacity.popularmovies.Utils;
+package nanodegree.udacity.popularmovies.utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import nanodegree.udacity.popularmovies.Movies;
+import nanodegree.udacity.popularmovies.models.Movies;
 
 public class JsonUtils {
     public static Movies JSONMoviesLatestForNotification(String incomingJson) {

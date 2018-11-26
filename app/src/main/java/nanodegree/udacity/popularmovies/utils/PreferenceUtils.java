@@ -1,4 +1,4 @@
-package nanodegree.udacity.popularmovies.Utils;
+package nanodegree.udacity.popularmovies.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

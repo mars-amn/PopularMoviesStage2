@@ -38,7 +38,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nanodegree.udacity.popularmovies.BuildConfig;
-import nanodegree.udacity.popularmovies.GlideApp;
 import nanodegree.udacity.popularmovies.R;
 import nanodegree.udacity.popularmovies.adapters.ReviewsAdapter;
 import nanodegree.udacity.popularmovies.adapters.TrailersAdapter;
@@ -50,7 +49,8 @@ import nanodegree.udacity.popularmovies.models.MoviesTrailers;
 import nanodegree.udacity.popularmovies.models.Poster;
 import nanodegree.udacity.popularmovies.models.ReviewsResults;
 import nanodegree.udacity.popularmovies.models.TrailersResults;
-import nanodegree.udacity.popularmovies.rest.MoviesAPIUtils;
+import nanodegree.udacity.popularmovies.rest.APIUtils;
+import nanodegree.udacity.popularmovies.utils.GlideApp;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -136,7 +136,7 @@ public class MovieDetailsFragment extends Fragment implements TrailersAdapter.on
         if (mTrailersResultResponse != null) {
             deployMovieTrailers(mTrailersResultResponse);
         } else {
-            MoviesAPIUtils.getRESTMovies().getMovieTrailers(mMovie.getId(), BuildConfig.TMDB_API_KEY)
+            APIUtils.getMoviesAPI().getMovieTrailers(mMovie.getId(), BuildConfig.TMDB_API_KEY)
                     .enqueue(new Callback<MoviesTrailers>() {
                         @Override
                         public void onResponse(Call<MoviesTrailers> call, Response<MoviesTrailers> response) {
@@ -179,7 +179,7 @@ public class MovieDetailsFragment extends Fragment implements TrailersAdapter.on
         if (mReviewsResultResponse != null) {
             deployMovieReviews(mReviewsResultResponse);
         } else {
-            MoviesAPIUtils.getRESTMovies().getMovieReviews(mMovie.getId(), BuildConfig.TMDB_API_KEY)
+            APIUtils.getMoviesAPI().getMovieReviews(mMovie.getId(), BuildConfig.TMDB_API_KEY)
                     .enqueue(new Callback<MoviesReviews>() {
                         @Override
                         public void onResponse(Call<MoviesReviews> call, Response<MoviesReviews> response) {
@@ -274,7 +274,7 @@ public class MovieDetailsFragment extends Fragment implements TrailersAdapter.on
 
     private void loadMoviePosters() {
         int movieId = mMovie.getId();
-        MoviesAPIUtils.getRESTMovies().getMovieImages(movieId, BuildConfig.TMDB_API_KEY)
+        APIUtils.getMoviesAPI().getMovieImages(movieId, BuildConfig.TMDB_API_KEY)
                 .enqueue(new Callback<MovieImages>() {
                     @Override
                     public void onResponse(Call<MovieImages> call, Response<MovieImages> response) {

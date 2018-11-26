@@ -59,7 +59,7 @@
 
             <include
                 android:id="@+id/includedDetailsLayoutInFavorite"
-                layout="@layout/details_layout" />
+                layout="@layout/movie_details_layout" />
 
         </LinearLayout>
 

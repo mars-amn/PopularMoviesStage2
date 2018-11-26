@@ -12,9 +12,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import nanodegree.udacity.popularmovies.BuildConfig;
-import nanodegree.udacity.popularmovies.GlideApp;
 import nanodegree.udacity.popularmovies.R;
 import nanodegree.udacity.popularmovies.models.MoviesResponse;
+import nanodegree.udacity.popularmovies.utils.GlideApp;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieListVHolder> {
 
@@ -31,7 +31,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieListV
 
     @Override
     public MovieListVHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View sortingListView = LayoutInflater.from(mContext).inflate(R.layout.sorting_list, parent, false);
+        View sortingListView = LayoutInflater.from(mContext).inflate(R.layout.list_item_movies_sorting, parent, false);
         final MovieListVHolder holder = new MovieListVHolder(sortingListView);
         holder.posterImage.setOnClickListener(new View.OnClickListener() {
             @Override

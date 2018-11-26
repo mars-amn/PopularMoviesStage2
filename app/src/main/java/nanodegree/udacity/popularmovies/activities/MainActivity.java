@@ -1,4 +1,4 @@
-package nanodegree.udacity.popularmovies;
+package nanodegree.udacity.popularmovies.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import nanodegree.udacity.popularmovies.R;
 import nanodegree.udacity.popularmovies.fragments.FavoriteMoviesFragment;
 import nanodegree.udacity.popularmovies.fragments.HighRatedMoviesFragment;
 import nanodegree.udacity.popularmovies.fragments.PopularMoviesFragment;
